@@ -27,78 +27,147 @@
   const units={FAD:['Facultad de Artes y Diseño','https://fad.uncuyo.edu.ar/estudios/grado'],FCAI:['Facultad de Ciencias Aplicadas a la Industria','https://fcai.uncuyo.edu.ar/estudios/grado'],FCA:['Facultad de Ciencias Agrarias','https://fca.uncuyo.edu.ar/estudios/grado'],FCEN:['Facultad de Ciencias Exactas y Naturales','https://fcen.uncuyo.edu.ar/estudios/grado'],FI:['Facultad de Ingeniería','https://ingenieria.uncuyo.edu.ar/estudios/grado'],ITU:['Instituto Tecnológico Universitario','https://itu.uncuyo.edu.ar/estudios/grado'],IB:['Instituto Balseiro','https://www.ib.edu.ar/academicas/carreras-de-grado/'],FCP:['Facultad de Ciencias Políticas y Sociales','https://fcp.uncuyo.edu.ar/estudios/grado'],FFYL:['Facultad de Filosofía y Letras','https://ffyl.uncuyo.edu.ar/estudios/grado'],FE:['Facultad de Educación','https://educacion.uncuyo.edu.ar/estudios/grado'],FCM:['Facultad de Ciencias Médicas','https://fcm.uncuyo.edu.ar/estudios/grado'],FO:['Facultad de Odontología','https://odontologia.uncuyo.edu.ar/estudios/grado'],FCE:['Facultad de Ciencias Económicas','https://fce.uncuyo.edu.ar/estudios/grado'],FD:['Facultad de Derecho','https://derecho.uncuyo.edu.ar/estudios/grado'],IUSP:['Instituto Universitario de Seguridad Pública','https://iusp.uncuyo.edu.ar/estudios/grado']};
   const rows=`Diseño Escenográfico|4 años|FAD|artes|Diseño
 Licenciatura en Arte Dramático|4 años|FAD|artes|Licenciatura
-Profesorado Universitario en Teatro|4 años|FAD|artes|Profesorado
+Profesorado de Grado Universitario en Teatro|4 años|FAD|artes|Profesorado
+Ciclo de Profesorado de Grado Universitario en Escenografía|1½ años|FAD|artes|Ciclo de Profesorado
 Licenciatura en Artes Plásticas|5 años|FAD|artes|Licenciatura
-Historia de las Artes Plásticas|5 años|FAD|artes|Licenciatura
-Profesorado en Artes Visuales|4½ años|FAD|artes|Profesorado
-Cerámica Artística|4½ años|FAD|artes|Licenciatura
-Cerámica Industrial|4½ años|FAD|artes|Licenciatura
+Licenciatura en Historia de las Artes Plásticas|5 años|FAD|artes|Licenciatura
+Profesorado de Grado Universitario en Artes Visuales|4½ años|FAD|artes|Profesorado
+Profesorado de Grado Universitario en Historia del Arte|4½ años|FAD|artes|Profesorado
+Licenciatura en Cerámica Artística|4½ años|FAD|artes|Licenciatura
+Licenciatura en Cerámica Industrial|4½ años|FAD|artes|Licenciatura
+Profesorado de Grado Universitario en Cerámica Artística|4 años|FAD|artes|Profesorado
 Diseño Gráfico|5 años|FAD|artes|Diseño
 Diseño Industrial|5 años|FAD|artes|Diseño
-Licenciaturas en Música|5 años|FAD|artes|Licenciatura
-Licenciatura en Música Popular|4 años|FAD|artes|Licenciatura
+Ciclo de Profesorado de Grado Universitario en Diseño|1½ años|FAD|artes|Ciclo de Profesorado
+Licenciatura en Música - Arpa|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Canto|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Clarinete|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Composición Musical|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Contrabajo|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Dirección Coral|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Fagot|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Flauta|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Guitarra|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Oboe|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Órgano|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Percusión|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Piano|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Saxofón|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Trombón|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Trompa (Corno)|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Trompeta|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Viola|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Violín|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Violoncello|5 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular - Orientación Canto|4 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular - Orientación Guitarra|4 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular - Orientación Percusión|4 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular - Orientación Teclados|4 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular - Orientación Vientos|4 años|FAD|artes|Licenciatura
+Profesorado de Grado Universitario en Teorías Musicales|5 años|FAD|artes|Profesorado
+Profesorado de Grado Universitario en Música|4 años|FAD|artes|Profesorado
+Ciclo de Profesorado de Grado Universitario en Música|1½ años|FAD|artes|Ciclo de Profesorado
 Ingeniería en Alimentos|5 años|FCAI|exactas|Ingeniería
 Ingeniería Química|5 años|FCAI|exactas|Ingeniería
 Ingeniería Mecánica|5 años|FCAI|exactas|Ingeniería
 Profesorado Universitario en Química|4 años|FCAI|exactas|Profesorado
-Tecnicatura en Enología y Viticultura|2 años 8 meses|FCAI|exactas|Tecnicatura
-Operaciones Mineras|3 años|FCAI|exactas|Tecnicatura
-Bromatología|3 años|FCA|exactas|Tecnicatura
+Tecnicatura Universitaria en Enología y Viticultura|2 años 8 meses|FCAI|exactas|Tecnicatura
+Tecnicatura Universitaria en Operaciones Mineras|3 años|FCAI|exactas|Tecnicatura
+Bromatología|3 años|FCAI|exactas|Pregrado
+Ciclo de Complementación Curricular Licenciatura en Enología|3 años|FCAI|exactas|Ciclo de Licenciatura
+Bromatología|3 años|FCA|exactas|Pregrado
 Licenciatura en Bromatología|4 años 9 meses|FCA|exactas|Licenciatura
 Ingeniería Agronómica|5 años 5 meses|FCA|exactas|Ingeniería
-Recursos Naturales Renovables|5 años|FCA|exactas|Ingeniería
-Profesorado en Ciencias Básicas|4½ años|FCEN|exactas|Profesorado
-Licenciatura en Ciencias Básicas|5 años|FCEN|exactas|Licenciatura
+Ingeniería en Recursos Naturales Renovables|5 años|FCA|exactas|Ingeniería
+Tecnicatura Universitaria en Enología y Viticultura|2 años 8 meses|FCA|exactas|Tecnicatura
+Profesorado en Ciencias Básicas - Orientación Biología|4½ años|FCEN|exactas|Profesorado
+Profesorado en Ciencias Básicas - Orientación Física|4½ años|FCEN|exactas|Profesorado
+Profesorado en Ciencias Básicas - Orientación Matemática|4½ años|FCEN|exactas|Profesorado
+Profesorado en Ciencias Básicas - Orientación Química|4½ años|FCEN|exactas|Profesorado
+Licenciatura en Ciencias Básicas - Orientación Biología|5 años|FCEN|exactas|Licenciatura
+Licenciatura en Ciencias Básicas - Orientación Física|5 años|FCEN|exactas|Licenciatura
+Licenciatura en Ciencias Básicas - Orientación Matemática|5 años|FCEN|exactas|Licenciatura
+Licenciatura en Ciencias Básicas - Orientación Química|5 años|FCEN|exactas|Licenciatura
 Licenciatura en Geología|5 años|FCEN|exactas|Licenciatura
 Ingeniería Civil|5 años|FI|exactas|Ingeniería
 Ingeniería en Petróleo|5 años|FI|exactas|Ingeniería
 Ingeniería Industrial|5 años|FI|exactas|Ingeniería
 Ingeniería Mecatrónica|5½ años|FI|exactas|Ingeniería
-Ciencias de la Computación|5 años|FI|exactas|Licenciatura
+Licenciatura en Ciencias de la Computación|5 años|FI|exactas|Licenciatura
 Arquitectura|5½ años|FI|exactas|Arquitectura
-Desarrollo de Software|2½ años|ITU|exactas|Tecnicatura
-Ciencia de Datos (a distancia)|2½ años|ITU|exactas|Tecnicatura
-Higiene y Seguridad en el Trabajo|2½ años|ITU|exactas|Tecnicatura
-Logística y Transporte|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Mantenimiento e Instalaciones Industriales|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Marketing|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Producción Industrial y Automatización|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Redes de Datos y Telecomunicaciones|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Electricidad y Sistemas de Control Industriales|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Desarrollo de Software|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Gestión de Empresas|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Higiene y Seguridad en el Trabajo|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Logística y Transporte|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Ciencia de Datos (a distancia)|2½ años|ITU|exactas|Tecnicatura
 Ingeniería Nuclear|3 años|IB|exactas|Ingeniería
+Ingeniería Mecánica|3 años|IB|exactas|Ingeniería
 Ingeniería en Telecomunicaciones|3½ años|IB|exactas|Ingeniería
 Licenciatura en Física|3½ años|IB|exactas|Licenciatura
-Ciencia Política y Administración Pública|5 años|FCP|sociales|Licenciatura
+Licenciatura en Ciencia Política y Administración Pública|5 años|FCP|sociales|Licenciatura
 Licenciatura en Sociología|5 años|FCP|sociales|Licenciatura
 Licenciatura en Trabajo Social|5 años|FCP|sociales|Licenciatura
-Comunicación Social|4 años|FCP|sociales|Licenciatura
-Gestión de Políticas Públicas|3 años|FCP|sociales|Tecnicatura
-Producción Audiovisual|2½ años|FCP|sociales|Tecnicatura
+Licenciatura en Comunicación Social|4 años|FCP|sociales|Licenciatura
+Tecnicatura Universitaria en Gestión de Políticas Públicas|3 años|FCP|sociales|Tecnicatura
+Tecnicatura Universitaria en Producción Audiovisual|2½ años|FCP|sociales|Tecnicatura
+Ciclo de Profesorado en Comunicación Social|2 años|FCP|sociales|Ciclo de Profesorado
+Ciclo de Profesorado en Ciencia Política y Administración Pública|2 años|FCP|sociales|Ciclo de Profesorado
+Ciclo de Profesorado en Sociología|2 años|FCP|sociales|Ciclo de Profesorado
+Ciclo de Profesorado en Trabajo Social|2 años|FCP|sociales|Ciclo de Profesorado
+Profesorado Universitario en Filosofía|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Letras|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Historia|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Geografía|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Ciencias de la Educación|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Lengua Inglesa|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Lengua y Literatura Francesas|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Portugués|4½ años|FFYL|sociales|Profesorado
 Licenciatura en Filosofía|5 años|FFYL|sociales|Licenciatura
 Licenciatura en Letras|5 años|FFYL|sociales|Licenciatura
 Licenciatura en Historia|5 años|FFYL|sociales|Licenciatura
 Licenciatura en Arqueología|5 años|FFYL|sociales|Licenciatura
 Licenciatura en Geografía|5 años|FFYL|sociales|Licenciatura
-Ciencias de la Educación|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Ciencias de la Educación|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Filología Inglesa|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Francés|5 años|FFYL|sociales|Licenciatura
 Licenciatura en Turismo|4 años|FFYL|sociales|Licenciatura
-Traductorado Público en Inglés|4½ años|FFYL|sociales|Traductorado
-Educación Inicial|4 años|FE|sociales|Profesorado
-Educación Primaria|4 años|FE|sociales|Profesorado
-Educación para Personas Sordas|4 años|FE|sociales|Profesorado
-Educación Social|2½ años|FE|sociales|Tecnicatura
+Traductorado Público en Inglés - Sede Central y Zona Este|4½ años|FFYL|sociales|Traductorado
+Tecnicatura Universitaria en Francés|3 años|FFYL|sociales|Tecnicatura
+Tecnicatura Universitaria en Geotecnologías|3 años|FFYL|sociales|Tecnicatura
+Geógrafo/a|4½ años|FFYL|sociales|Carrera de grado
+Ciclo de Profesorado para Profesionales Universitarios - Sede Central y San Rafael|2 años|FFYL|sociales|Ciclo de Profesorado
+Profesorado Universitario de Educación Inicial|4 años|FE|sociales|Profesorado
+Profesorado Universitario de Educación para Personas Sordas|4 años|FE|sociales|Profesorado
+Profesorado Universitario de Educación Primaria|4 años|FE|sociales|Profesorado
+Profesorado Universitario de Pedagogía Terapéutica en Discapacidad Intelectual con Orientación en Discapacidad Motora|4 años|FE|sociales|Profesorado
+Profesorado Universitario de Pedagogía Terapéutica en Discapacidad Visual|4 años|FE|sociales|Profesorado
+Tecnicatura en Interpretación de Lengua de Señas|3 años|FE|sociales|Tecnicatura
+Tecnicatura Universitaria en Educación Social|2½ años|FE|sociales|Tecnicatura
+Licenciatura en Terapia del Lenguaje|4 años|FE|sociales|Licenciatura
 Medicina|6 años|FCM|salud|Carrera de grado
 Licenciatura en Enfermería|5 años|FCM|salud|Licenciatura
-Diagnóstico por Imágenes|3 años|FCM|salud|Tecnicatura
-Laboratorio|3 años|FCM|salud|Tecnicatura
-Quirófano|3 años|FCM|salud|Tecnicatura
-Anestesia|3 años|FCM|salud|Tecnicatura
+Ciclo de Licenciatura en Higiene y Seguridad en el Trabajo|2 años|FCM|salud|Ciclo de Licenciatura
+Tecnicatura Universitaria en Diagnóstico por Imágenes|3 años|FCM|salud|Tecnicatura
+Tecnicatura Universitaria en Laboratorio|3 años|FCM|salud|Tecnicatura
+Tecnicatura Universitaria en Quirófano|3 años|FCM|salud|Tecnicatura
+Tecnicatura Universitaria en Anestesia|3 años|FCM|salud|Tecnicatura
 Odontología|5 años|FO|salud|Carrera de grado
-Terapia del Lenguaje|4 años|FE|salud|Licenciatura
 Licenciatura en Administración|5 años|FCE|economicas|Licenciatura
 Licenciatura en Economía|4 años|FCE|economicas|Licenciatura
 Licenciatura en Logística|4 años|FCE|economicas|Licenciatura
 Contador Público|4 años|FCE|economicas|Carrera de grado
+Ciclo de Licenciatura en Gestión de Negocios Regionales|2½ años|FCE|economicas|Ciclo de Licenciatura
 Abogacía|5 años|FD|economicas|Carrera de grado
-Administración de Edificios y Conjuntos Inmobiliarios|2 años|FD|economicas|Tecnicatura
-Licenciatura en Seguridad Pública|4 años|IUSP|economicas|Licenciatura
+Tecnicatura Universitaria en Administración de Edificios de Propiedad Horizontal y Conjuntos Inmobiliarios|2 años|FD|economicas|Tecnicatura
 Licenciatura en Seguridad Penitenciaria|4 años|IUSP|economicas|Licenciatura
-Tecnicatura en Seguridad Pública|2 años|IUSP|economicas|Tecnicatura
-Tecnicatura en Seguridad Penitenciaria|2 años|IUSP|economicas|Tecnicatura`;
+Licenciatura en Seguridad Pública|4 años|IUSP|economicas|Licenciatura
+Tecnicatura Universitaria en Seguridad Penitenciaria|2 años|IUSP|economicas|Tecnicatura
+Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicatura`;
   const data=rows.split('\n').map((r,id)=>{const[name,duration,u,family,type]=r.split('|');return{id,name,duration,faculty:units[u][0],url:units[u][1],family,type}});
   const direct={'Diseño Escenográfico':'https://fad.uncuyo.edu.ar/estudios/carrera/diseno-escenografico','Ingeniería Agronómica':'https://fca.uncuyo.edu.ar/estudios/carrera/ingenieria-agronomica','Licenciatura en Sociología':'https://www.uncuyo.edu.ar/estudios/carrera/licenciatura-en-sociologia_7951'};data.forEach(x=>{if(direct[x.name])x.url=direct[x.name]});
   let selectedFamily='',selectedFaculty='';const fam=document.querySelector('#families');
