@@ -34,6 +34,13 @@
     .fad-group .career-row:first-child,.fad-group .career-row:last-child{border-radius:0}
     .fad-group .career-row:last-child{border-bottom:0}
     @media(max-width:620px){.header-logo img{height:47px;max-width:210px}}
+    @media(max-width:620px){
+      .career-list.sorted>.career-row,.duration-block>.career-row{grid-template-columns:minmax(0,1fr)}
+      .career-row>div{min-width:0}
+      .career-row h3{overflow-wrap:anywhere}
+      .career-link{display:block;width:100%;max-width:100%;box-sizing:border-box;text-align:center}
+      .fad-group summary{padding:17px 16px;flex-wrap:wrap}
+    }
   </style>
 </head>
 <body>
