@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Explorador de carreras UNCUYO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#17203f;--muted:#68718b;--line:#e3e4ef;--paper:#f6f5fd}*{box-sizing:border-box}body,button,input,select{font-family:'Montserrat',Arial,sans-serif}body{margin:0;color:var(--ink)}header{height:72px;padding:0 6vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-size:22px;font-weight:900}.brand small{font-size:12px;font-weight:500;border-left:1px solid #ccd0dd;margin-left:13px;padding-left:13px}.official{color:#3853d4;font-weight:800;text-decoration:none;font-size:13px}.hero{padding:68px 7vw;min-height:430px;display:grid;grid-template-columns:1.4fr .6fr;align-items:center;background:linear-gradient(115deg,#efedff,#faf8ff 65%,#fff5db)}.eyebrow{color:#4758d6;font-weight:900;font-size:11px;letter-spacing:.15em}.hero h1{font-size:clamp(45px,5.5vw,76px);line-height:.98;letter-spacing:-.055em;margin:14px 0 24px;max-width:790px}.lead{color:var(--muted);font-size:18px;line-height:1.55;max-width:650px}.search{max-width:620px;height:61px;background:#fff;border:1px solid #dcddea;border-radius:18px;margin-top:30px;display:flex;align-items:center;padding:0 20px;box-shadow:0 15px 36px #26326812}.search b{font-size:25px;color:#5360cf}.search input{width:100%;border:0;outline:0;font-size:16px;margin-left:12px}.orb{width:260px;height:260px;border-radius:50%;border:27px solid;border-color:#785acc #f6b914 #0db0b9 #ff627b;display:grid;place-content:center;text-align:center;transform:rotate(14deg);margin:auto}.orb div{transform:rotate(-14deg)}.orb strong{font-size:62px;display:block}.section{padding:68px 7vw}.section h2{font-size:36px;letter-spacing:-.04em;margin:8px 0 30px}.families{display:grid;grid-template-columns:repeat(5,1fr);gap:13px}.family{--a:#4455d5;border:1px solid var(--line);background:#fff;border-radius:20px;padding:20px;min-height:155px;text-align:left;display:flex;flex-direction:column;cursor:pointer;transition:.2s}.family:hover,.family.on{transform:translateY(-4px);border-color:var(--a);box-shadow:0 14px 30px #22254a12}.family i{font-style:normal;width:40px;height:40px;border-radius:12px;display:grid;place-content:center;background:color-mix(in srgb,var(--a) 15%,white);color:var(--a);font-size:20px}.family b{margin:17px 0 10px;line-height:1.2}.family small{color:var(--muted);margin-top:auto}.catalog{background:var(--paper)}.cathead{display:flex;justify-content:space-between;align-items:end;gap:20px}.cathead h2{margin-bottom:6px}.count{color:var(--muted);font-size:13px}.filters{display:flex;gap:8px}.filters select,.filters button{height:42px;background:#fff;border:1px solid #d9dbea;border-radius:11px;padding:0 13px;color:var(--ink)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:28px}.card{--a:#4455d5;background:#fff;border:1px solid var(--line);border-radius:18px;padding:21px;min-height:220px;display:flex;flex-direction:column}.card:before{content:"";height:4px;background:var(--a);border-radius:5px;margin:-21px -21px 18px}.meta{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.tag{color:var(--a);font-weight:900;text-transform:uppercase}.card h3{font-size:21px;line-height:1.15;margin:23px 0 8px}.card p{font-size:13px;color:var(--muted);line-height:1.4;margin:0}.actions{margin-top:auto;padding-top:22px;display:flex;justify-content:space-between;align-items:center;gap:10px}.actions button{border:0;background:none;padding:0;font-weight:800;cursor:pointer}.actions a{color:#3e53d2;text-decoration:none;font-size:12px;font-weight:800}.empty{text-align:center;padding:65px;color:var(--muted)}footer{padding:35px 7vw;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:30px;font-size:12px;color:var(--muted)}.backdrop{display:none;position:fixed;inset:0;background:#10152cbd;z-index:20;padding:20px;place-items:center}.backdrop.open{display:grid}.modal{background:#fff;border-radius:24px;padding:35px;width:min(570px,100%);position:relative}.close{position:absolute;right:18px;top:12px;border:0;background:none;font-size:30px;cursor:pointer}.modal h2{font-size:34px;letter-spacing:-.04em;margin:18px 0}.facts{border-top:1px solid var(--line)}.facts p{border-bottom:1px solid var(--line);padding:13px 0;margin:0}.facts b{display:inline-block;width:145px;font-size:11px;text-transform:uppercase;color:var(--muted)}.note{color:var(--muted);line-height:1.5;font-size:13px}.go{display:block;text-align:center;background:#3450d2;color:#fff;text-decoration:none;padding:15px;border-radius:12px;font-weight:800;margin-top:20px}
+    @media(max-width:950px){.hero{grid-template-columns:1fr}.orb{display:none}.families{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){header{height:64px}.brand small{display:none}.hero,.section{padding:48px 22px}.hero{min-height:auto}.hero h1{font-size:44px}.families,.grid{grid-template-columns:1fr}.cathead{align-items:flex-start;flex-direction:column}.filters{width:100%;flex-wrap:wrap}.filters select{flex:1}.card{min-height:205px}footer{flex-direction:column}.facts b{width:auto;display:block;margin-bottom:4px}}
+  </style>
+</head>
+<body>
+  <header><div class="brand">UNCUYO <small>Explorador de carreras</small></div><a class="official" href="https://www.uncuyo.edu.ar/estudios/grado" target="_blank">Sitio oficial ↗</a></header>
+  <section class="hero"><div><div class="eyebrow">TU PRÓXIMO PASO EMPIEZA ACÁ</div><h1>Encontrá una carrera que conecte con vos.</h1><p class="lead">Explorá la oferta académica por áreas, buscá por nombre y accedé a la información oficial de cada unidad académica.</p><label class="search"><b>⌕</b><input id="q" placeholder="Buscá una carrera, facultad o tema…" aria-label="Buscar carreras"></label></div><div class="orb"><div><strong>+140</strong><span>propuestas<br>académicas</span></div></div></section>
+  <section class="section"><div class="eyebrow">EXPLORÁ A TU MANERA</div><h2>Familias de carreras</h2><div class="families" id="families"></div></section>
+  <section class="section catalog"><div class="cathead"><div><div class="eyebrow">OFERTA ACADÉMICA</div><h2 id="title">Todas las carreras</h2><div class="count" id="count"></div></div><div class="filters"><select id="type"><option value="">Todos los tipos</option></select><button id="clear">Limpiar filtros</button></div></div><div class="grid" id="grid"></div></section>
+  <footer><b>UNCUYO · Explorador de carreras</b><span>La información detallada y las condiciones de ingreso se consultan en los sitios oficiales.</span></footer>
+  <div class="backdrop" id="back"><div class="modal"><button class="close" aria-label="Cerrar">×</button><span class="tag" id="mtag"></span><h2 id="mname"></h2><div class="facts" id="facts"></div><p class="note">Consultá el perfil profesional, el plan de estudios, los requisitos y las fechas de ingreso en la página oficial.</p><a class="go" id="mlink" target="_blank">Ampliar en el sitio oficial ↗</a></div></div>
+  <script>
+  const meta={artes:['Artes y Diseño','#f0a500','✦'],exactas:['Exactas, Naturales y Tecnológicas','#78a900','⌁'],sociales:['Sociales y Humanas','#7958c8','◌'],salud:['Ciencias de la Salud','#00aeba','+'],economicas:['Económicas, Jurídicas y de Seguridad','#ef5b3f','◇']};
+  const units={FAD:['Facultad de Artes y Diseño','https://fad.uncuyo.edu.ar/estudios/grado'],FCAI:['Facultad de Ciencias Aplicadas a la Industria','https://fcai.uncuyo.edu.ar/estudios/grado'],FCA:['Facultad de Ciencias Agrarias','https://fca.uncuyo.edu.ar/estudios/grado'],FCEN:['Facultad de Ciencias Exactas y Naturales','https://fcen.uncuyo.edu.ar/estudios/grado'],FI:['Facultad de Ingeniería','https://ingenieria.uncuyo.edu.ar/estudios/grado'],ITU:['Instituto Tecnológico Universitario','https://itu.uncuyo.edu.ar/estudios/grado'],IB:['Instituto Balseiro','https://www.ib.edu.ar/academicas/carreras-de-grado/'],FCP:['Facultad de Ciencias Políticas y Sociales','https://fcp.uncuyo.edu.ar/estudios/grado'],FFYL:['Facultad de Filosofía y Letras','https://ffyl.uncuyo.edu.ar/estudios/grado'],FE:['Facultad de Educación','https://educacion.uncuyo.edu.ar/estudios/grado'],FCM:['Facultad de Ciencias Médicas','https://fcm.uncuyo.edu.ar/estudios/grado'],FO:['Facultad de Odontología','https://odontologia.uncuyo.edu.ar/estudios/grado'],FCE:['Facultad de Ciencias Económicas','https://fce.uncuyo.edu.ar/estudios/grado'],FD:['Facultad de Derecho','https://derecho.uncuyo.edu.ar/estudios/grado'],IUSP:['Instituto Universitario de Seguridad Pública','https://iusp.uncuyo.edu.ar/estudios/grado']};
+  const rows=`Diseño Escenográfico|4 años|FAD|artes|Diseño
+Licenciatura en Arte Dramático|4 años|FAD|artes|Licenciatura
+Profesorado Universitario en Teatro|4 años|FAD|artes|Profesorado
+Licenciatura en Artes Plásticas|5 años|FAD|artes|Licenciatura
+Historia de las Artes Plásticas|5 años|FAD|artes|Licenciatura
+Profesorado en Artes Visuales|4½ años|FAD|artes|Profesorado
+Cerámica Artística|4½ años|FAD|artes|Licenciatura
+Cerámica Industrial|4½ años|FAD|artes|Licenciatura
+Diseño Gráfico|5 años|FAD|artes|Diseño
+Diseño Industrial|5 años|FAD|artes|Diseño
+Licenciaturas en Música|5 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular|4 años|FAD|artes|Licenciatura
+Ingeniería en Alimentos|5 años|FCAI|exactas|Ingeniería
+Ingeniería Química|5 años|FCAI|exactas|Ingeniería
+Ingeniería Mecánica|5 años|FCAI|exactas|Ingeniería
+Profesorado Universitario en Química|4 años|FCAI|exactas|Profesorado
+Tecnicatura en Enología y Viticultura|2 años 8 meses|FCAI|exactas|Tecnicatura
+Operaciones Mineras|3 años|FCAI|exactas|Tecnicatura
+Bromatología|3 años|FCA|exactas|Tecnicatura
+Licenciatura en Bromatología|4 años 9 meses|FCA|exactas|Licenciatura
+Ingeniería Agronómica|5 años 5 meses|FCA|exactas|Ingeniería
+Recursos Naturales Renovables|5 años|FCA|exactas|Ingeniería
+Profesorado en Ciencias Básicas|4½ años|FCEN|exactas|Profesorado
+Licenciatura en Ciencias Básicas|5 años|FCEN|exactas|Licenciatura
+Licenciatura en Geología|5 años|FCEN|exactas|Licenciatura
+Ingeniería Civil|5 años|FI|exactas|Ingeniería
+Ingeniería en Petróleo|5 años|FI|exactas|Ingeniería
+Ingeniería Industrial|5 años|FI|exactas|Ingeniería
+Ingeniería Mecatrónica|5½ años|FI|exactas|Ingeniería
+Ciencias de la Computación|5 años|FI|exactas|Licenciatura
+Arquitectura|5½ años|FI|exactas|Arquitectura
+Desarrollo de Software|2½ años|ITU|exactas|Tecnicatura
+Ciencia de Datos (a distancia)|2½ años|ITU|exactas|Tecnicatura
+Higiene y Seguridad en el Trabajo|2½ años|ITU|exactas|Tecnicatura
+Logística y Transporte|2½ años|ITU|exactas|Tecnicatura
+Ingeniería Nuclear|3 años|IB|exactas|Ingeniería
+Ingeniería en Telecomunicaciones|3½ años|IB|exactas|Ingeniería
+Licenciatura en Física|3½ años|IB|exactas|Licenciatura
+Ciencia Política y Administración Pública|5 años|FCP|sociales|Licenciatura
+Licenciatura en Sociología|5 años|FCP|sociales|Licenciatura
+Licenciatura en Trabajo Social|5 años|FCP|sociales|Licenciatura
+Comunicación Social|4 años|FCP|sociales|Licenciatura
+Gestión de Políticas Públicas|3 años|FCP|sociales|Tecnicatura
+Producción Audiovisual|2½ años|FCP|sociales|Tecnicatura
+Licenciatura en Filosofía|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Letras|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Historia|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Arqueología|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Geografía|5 años|FFYL|sociales|Licenciatura
+Ciencias de la Educación|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Turismo|4 años|FFYL|sociales|Licenciatura
+Traductorado Público en Inglés|4½ años|FFYL|sociales|Traductorado
+Educación Inicial|4 años|FE|sociales|Profesorado
+Educación Primaria|4 años|FE|sociales|Profesorado
+Educación para Personas Sordas|4 años|FE|sociales|Profesorado
+Educación Social|2½ años|FE|sociales|Tecnicatura
+Medicina|6 años|FCM|salud|Carrera de grado
+Licenciatura en Enfermería|5 años|FCM|salud|Licenciatura
+Diagnóstico por Imágenes|3 años|FCM|salud|Tecnicatura
+Laboratorio|3 años|FCM|salud|Tecnicatura
+Quirófano|3 años|FCM|salud|Tecnicatura
+Anestesia|3 años|FCM|salud|Tecnicatura
+Odontología|5 años|FO|salud|Carrera de grado
+Terapia del Lenguaje|4 años|FE|salud|Licenciatura
+Licenciatura en Administración|5 años|FCE|economicas|Licenciatura
+Licenciatura en Economía|4 años|FCE|economicas|Licenciatura
+Licenciatura en Logística|4 años|FCE|economicas|Licenciatura
+Contador Público|4 años|FCE|economicas|Carrera de grado
+Abogacía|5 años|FD|economicas|Carrera de grado
+Administración de Edificios y Conjuntos Inmobiliarios|2 años|FD|economicas|Tecnicatura
+Licenciatura en Seguridad Pública|4 años|IUSP|economicas|Licenciatura
+Licenciatura en Seguridad Penitenciaria|4 años|IUSP|economicas|Licenciatura
+Tecnicatura en Seguridad Pública|2 años|IUSP|economicas|Tecnicatura
+Tecnicatura en Seguridad Penitenciaria|2 años|IUSP|economicas|Tecnicatura`;
+  const data=rows.split('\n').map((r,id)=>{const[name,duration,u,family,type]=r.split('|');return{id,name,duration,faculty:units[u][0],url:units[u][1],family,type}});
+  const direct={'Diseño Escenográfico':'https://fad.uncuyo.edu.ar/estudios/carrera/diseno-escenografico','Ingeniería Agronómica':'https://fca.uncuyo.edu.ar/estudios/carrera/ingenieria-agronomica','Licenciatura en Sociología':'https://www.uncuyo.edu.ar/estudios/carrera/licenciatura-en-sociologia_7951'};data.forEach(x=>{if(direct[x.name])x.url=direct[x.name]});
+  let active='';const fam=document.querySelector('#families'),grid=document.querySelector('#grid'),q=document.querySelector('#q'),type=document.querySelector('#type');
+  Object.entries(meta).forEach(([k,m])=>{const b=document.createElement('button');b.className='family';b.style.setProperty('--a',m[1]);b.innerHTML='<i>'+m[2]+'</i><b>'+m[0]+'</b><small>'+data.filter(x=>x.family===k).length+' opciones</small>';b.onclick=()=>{active=active===k?'':k;render()};b.dataset.k=k;fam.append(b)});
+  [...new Set(data.map(x=>x.type))].forEach(t=>type.add(new Option(t,t)));
+  function render(){const s=q.value.toLowerCase(),list=data.filter(x=>(!active||x.family===active)&&(!type.value||x.type===type.value)&&(x.name+' '+x.faculty).toLowerCase().includes(s));document.querySelectorAll('.family').forEach(x=>x.classList.toggle('on',x.dataset.k===active));document.querySelector('#title').textContent=active?meta[active][0]:'Todas las carreras';document.querySelector('#count').textContent=list.length+' resultados';grid.innerHTML=list.map(x=>'<article class="card" style="--a:'+meta[x.family][1]+'"><div class="meta"><span class="tag">'+meta[x.family][0]+'</span><span>'+x.duration+'</span></div><h3>'+x.name+'</h3><p>'+x.faculty+'</p><div class="actions"><button data-id="'+x.id+'">Ver ficha</button><a href="'+x.url+'" target="_blank">Información oficial ↗</a></div></article>').join('')||'<div class="empty">No encontramos coincidencias. Probá con otra palabra.</div>';grid.querySelectorAll('button').forEach(b=>b.onclick=()=>openModal(data[b.dataset.id]))}
+  function openModal(x){document.querySelector('#mtag').textContent=meta[x.family][0];document.querySelector('#mtag').style.color=meta[x.family][1];document.querySelector('#mname').textContent=x.name;document.querySelector('#facts').innerHTML='<p><b>Duración</b>'+x.duration+'</p><p><b>Tipo</b>'+x.type+'</p><p><b>Unidad académica</b>'+x.faculty+'</p>';document.querySelector('#mlink').href=x.url;document.querySelector('#back').classList.add('open')}
+  q.oninput=type.onchange=render;document.querySelector('#clear').onclick=()=>{q.value='';type.value='';active='';render()};document.querySelector('.close').onclick=()=>document.querySelector('#back').classList.remove('open');document.querySelector('#back').onclick=e=>{if(e.target.id==='back')e.target.classList.remove('open')};render();
+  </script>
+</body></html>
