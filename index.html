@@ -18,6 +18,16 @@
     .header-logo img{height:92px;max-width:225px}
     .family .arrow{font-size:28px;font-weight:900}
     .career-row h3{color:var(--accent)}
+    .fad-groups{display:grid;gap:14px;border-top:0}
+    .career-list.grouped{border-top:0}
+    .fad-group{border-radius:18px;overflow:hidden;background:#fff}
+    .fad-group summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 22px;background:var(--accent);color:#f0eeff;cursor:pointer;font-weight:800}
+    .fad-group summary::-webkit-details-marker{display:none}
+    .fad-group summary span{font-size:17px}
+    .fad-group summary small{color:#f0eeff;font-size:12px;font-weight:700}
+    .fad-group[open] summary{border-radius:18px 18px 0 0}
+    .fad-group .career-row:first-child,.fad-group .career-row:last-child{border-radius:0}
+    .fad-group .career-row:last-child{border-bottom:0}
     @media(max-width:620px){.header-logo img{height:47px;max-width:210px}}
   </style>
 </head>
@@ -227,8 +237,15 @@ Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicat
   Object.entries(meta).forEach(([key,m])=>{const button=document.createElement('button');button.className='family';button.style.setProperty('--a',m[1]);button.innerHTML='<b>'+m[0]+'</b><small>'+data.filter(x=>x.family===key).length+' carreras</small><span class="arrow">→</span>';button.onclick=()=>chooseFamily(key);fam.append(button)});
   function setStep(number){[1,2,3].forEach(n=>document.querySelector('#s'+n).classList.toggle('current',n===number))}
   function show(id){['familyStage','facultyStage','careerStage'].forEach(x=>document.querySelector('#'+x).classList.toggle('visible',x===id));document.querySelector('#familyStage').style.display=id==='familyStage'?'block':'none';setTimeout(()=>document.querySelector('#'+id).scrollIntoView({behavior:'smooth',block:'start'}),30)}
+  function careerRow(x){return '<article class="career-row"><div><h3>'+x.name+'</h3><small>'+x.type+'</small></div><span class="duration">'+x.duration+'</span><a class="career-link" href="'+x.url+'" target="_blank">Ampliar información</a></article>'}
+  function fadGroup(name){if(name.includes('Música')||name.includes('Musicales'))return 'Música';if(name.includes('Cerámica'))return 'Cerámica';if(name.includes('Escen')||name.includes('Arte Dramático')||name.includes('Teatro'))return 'Artes del espectáculo';if(name.includes('Diseño'))return 'Diseño';return 'Artes visuales'}
+  function renderCareers(list,code){
+    if(code!=='FAD')return list.map(careerRow).join('');
+    const order=['Artes del espectáculo','Artes visuales','Cerámica','Diseño','Música'];
+    return '<div class="fad-groups">'+order.map(group=>{const careers=list.filter(x=>fadGroup(x.name)===group);return '<details class="fad-group"><summary><span>'+group+'</span><small>'+careers.length+' carreras</small></summary><div>'+careers.map(careerRow).join('')+'</div></details>'}).join('')+'</div>';
+  }
   function chooseFamily(key){selectedFamily=key;selectedFaculty='';const m=meta[key],codes=[...new Set(data.filter(x=>x.family===key).map(x=>Object.keys(units).find(u=>units[u][0]===x.faculty)))];document.querySelector('#familyTitle').textContent=m[0];document.querySelector('#facultyStage').style.setProperty('--accent',m[1]);document.querySelector('#facultyList').innerHTML=codes.map(code=>'<button class="faculty-btn" data-code="'+code+'"><span class="faculty-logo"><img src="'+logos[code]+'" alt="Logo '+units[code][0]+'"></span><span class="faculty-label"><b>'+units[code][0]+'</b></span></button>').join('');document.querySelectorAll('.faculty-btn').forEach(b=>b.onclick=()=>chooseFaculty(b.dataset.code));document.querySelector('#s2').classList.remove('disabled');document.querySelector('#s3').classList.add('disabled');setStep(2);show('facultyStage')}
-  function chooseFaculty(code){selectedFaculty=code;const list=data.filter(x=>x.family===selectedFamily&&x.faculty===units[code][0]),m=meta[selectedFamily];document.querySelector('#facultyTitle').textContent=units[code][0];document.querySelector('#careerStage').style.setProperty('--accent',m[1]);document.querySelector('#careerList').innerHTML=list.map(x=>'<article class="career-row"><div><h3>'+x.name+'</h3><small>'+x.type+'</small></div><span class="duration">'+x.duration+'</span><a class="career-link" href="'+x.url+'" target="_blank">Ampliar información</a></article>').join('');document.querySelector('#siteButton').href=units[code][1];document.querySelector('#admissionButton').href=units[code][2];document.querySelector('#s3').classList.remove('disabled');setStep(3);show('careerStage')}
+  function chooseFaculty(code){selectedFaculty=code;const list=data.filter(x=>x.family===selectedFamily&&x.faculty===units[code][0]),m=meta[selectedFamily],careerList=document.querySelector('#careerList');document.querySelector('#facultyTitle').textContent=units[code][0];document.querySelector('#careerStage').style.setProperty('--accent',m[1]);careerList.classList.toggle('grouped',code==='FAD');careerList.innerHTML=renderCareers(list,code);document.querySelector('#siteButton').href=units[code][1];document.querySelector('#admissionButton').href=units[code][2];document.querySelector('#s3').classList.remove('disabled');setStep(3);show('careerStage')}
   document.querySelector('#s1').onclick=()=>{setStep(1);show('familyStage')};document.querySelector('#s2').onclick=()=>{if(selectedFamily){setStep(2);show('facultyStage')}};document.querySelector('#s3').onclick=()=>{if(selectedFaculty)chooseFaculty(selectedFaculty)};document.querySelector('#backFamily').onclick=()=>{setStep(1);show('familyStage')};document.querySelector('#backFaculty').onclick=()=>{setStep(2);show('facultyStage')};document.querySelector('#familyStage').classList.add('visible');
   </script>
 </body></html>
