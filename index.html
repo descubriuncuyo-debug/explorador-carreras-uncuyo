@@ -31,8 +31,11 @@
     .fad-group summary span{font-size:17px}
     .fad-group summary small{color:#f0eeff;font-size:12px;font-weight:700}
     .fad-group[open] summary{border-radius:18px 18px 0 0}
+    .fad-group[open] summary{margin-bottom:14px}
+    .fad-group[open] .duration-block{padding:0 12px 12px}
     .fad-group .career-row:first-child,.fad-group .career-row:last-child{border-radius:0}
     .fad-group .career-row:last-child{border-bottom:0}
+    .career-note{color:#2b2b2d;font-weight:400;font-size:.9em}
     @media(max-width:620px){.header-logo img{height:47px;max-width:210px}}
     @media(max-width:620px){
       .career-list.sorted>.career-row,.duration-block>.career-row{grid-template-columns:minmax(0,1fr)}
@@ -165,7 +168,8 @@ Licenciatura en Ciencias de la Educación|5 años|FFYL|sociales|Licenciatura
 Licenciatura en Filología Inglesa|5 años|FFYL|sociales|Licenciatura
 Licenciatura en Francés|5 años|FFYL|sociales|Licenciatura
 Licenciatura en Turismo|4 años|FFYL|sociales|Licenciatura
-Traductorado Público en Inglés - Sede Central y Zona Este|4½ años|FFYL|sociales|Traductorado
+Traductorado Público en Inglés (Sede Central)|4½ años|FFYL|sociales|Traductorado
+Traductorado Público en Inglés (Sede Junín)|4½ años|FFYL|sociales|Traductorado
 Tecnicatura Universitaria en Francés|3 años|FFYL|sociales|Tecnicatura
 Tecnicatura Universitaria en Geotecnologías|3 años|FFYL|sociales|Tecnicatura
 Geógrafo/a|4½ años|FFYL|sociales|Carrera de grado
@@ -188,9 +192,9 @@ Tecnicatura Universitaria en Anestesia|3 años|FCM|salud|Tecnicatura
 Odontología|5 años|FO|salud|Carrera de grado
 Licenciatura en Administración|5 años|FCE|economicas|Licenciatura
 Licenciatura en Economía|4 años|FCE|economicas|Licenciatura
-Licenciatura en Logística|4 años|FCE|economicas|Licenciatura
-Contador Público|4 años|FCE|economicas|Carrera de grado
-Ciclo de Licenciatura en Gestión de Negocios Regionales|2½ años|FCE|economicas|Ciclo de Licenciatura
+Licenciatura en Logística (Mendoza y a distancia)|4 años|FCE|economicas|Licenciatura
+Contador Público (Mendoza y San Rafael)|4 años|FCE|economicas|Carrera de grado
+Ciclo de Licenciatura en Gestión de Negocios Regionales (Gral. Alvear y Junín)|2½ años|FCE|economicas|Ciclo de Licenciatura
 Abogacía|5 años|FD|economicas|Carrera de grado
 Tecnicatura Universitaria en Administración de Edificios de Propiedad Horizontal y Conjuntos Inmobiliarios|2 años|FD|economicas|Tecnicatura
 Licenciatura en Seguridad Penitenciaria|4 años|IUSP|economicas|Licenciatura
@@ -198,10 +202,16 @@ Licenciatura en Seguridad Pública|4 años|IUSP|economicas|Licenciatura
 Tecnicatura Universitaria en Seguridad Penitenciaria|2 años|IUSP|economicas|Tecnicatura
 Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicatura`;
   const specialPaths={
+    'FAD|Ciclo de Profesorado de Grado Universitario en Escenografía':'ciclo-profesorado-de-grado-universitario-en-escenografia',
+    'FAD|Profesorado de Grado Universitario en Teatro':'profesorado-de-grado-universitario-de-teatro',
+    'FAD|Ciclo de Profesorado de Grado Universitario en Diseño':'ciclo-de-profesorado-de-grado-universitario-de-diseno',
+    'FAD|Diseño Gráfico':'diseno-grafico-',
+    'FAD|Profesorado de Grado Universitario en Música':'ciclo-de-profesorado-de-grado-universitario-en-musica',
     'FAD|Profesorado de Grado Universitario en Teorías Musicales':'profesorado-de-grado-universitario-de-teorias-musicales',
     'FCAI|Ingeniería en Alimentos':'ingenieria-en-industrias-de-la-alimentacion',
     'FCAI|Profesorado Universitario en Química':'profesorado-de-grado-universitario-en-quimica',
     'FCAI|Bromatología':'bromatologia11',
+    'FCAI|Ciclo de Complementación Curricular Licenciatura en Enología':'ciclo-de-licenciatura-en-enologia',
     'FCEN|Profesorado en Ciencias Básicas - Orientación Biología':'profesorado-de-grado-universitario-en-ciencias-basicas',
     'FCEN|Profesorado en Ciencias Básicas - Orientación Física':'profesorado-de-grado-universitario-en-ciencias-basicas',
     'FCEN|Profesorado en Ciencias Básicas - Orientación Matemática':'profesorado-de-grado-universitario-en-ciencias-basicas',
@@ -210,6 +220,8 @@ Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicat
     'FCEN|Licenciatura en Ciencias Básicas - Orientación Física':'licenciatura-en-ciencias-basicas',
     'FCEN|Licenciatura en Ciencias Básicas - Orientación Matemática':'licenciatura-en-ciencias-basicas',
     'FCEN|Licenciatura en Ciencias Básicas - Orientación Química':'licenciatura-en-ciencias-basicas',
+    'FCEN|Licenciatura en Geología':'licenciado-en-geologia',
+    'FI|Ingeniería en Petróleo':'ingenieria-de-petroleos',
     'ITU|Tecnicatura en Mantenimiento e Instalaciones Industriales':'tecnicatura-universitaria-en-instalaciones-industriales-y-mantenimiento',
     'ITU|Tecnicatura en Marketing':'tecnicatura-universitaria-marketing',
     'ITU|Tecnicatura en Producción Industrial y Automatización':'tecnicatura-universitaria-en-produccion-industrial-y-automatizacion',
@@ -220,16 +232,23 @@ Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicat
     'ITU|Tecnicatura en Higiene y Seguridad en el Trabajo':'tecnicatura-universitaria-en-higiene-y-seguridad-en-el-trabajo',
     'ITU|Tecnicatura en Logística y Transporte':'tecnicatura-logistica-y-transporte',
     'ITU|Tecnicatura en Ciencia de Datos (a distancia)':'tecnicatura-universitaria-en-ciencia-de-datos',
-    'FFYL|Traductorado Público en Inglés - Sede Central y Zona Este':'traductorado-publico-en-ingles',
+    'FFYL|Profesorado Universitario en Lengua y Literatura Francesas':'profesorado-de-grado-universitario-en-lengua-y-literatura-francesas',
+    'FFYL|Profesorado Universitario en Portugués':'profesorado-de-grado-universitario-en-portugues',
+    'FFYL|Traductorado Público en Inglés (Sede Central)':'traductorado-publico-en-ingles',
+    'FFYL|Traductorado Público en Inglés (Sede Junín)':'traductorado-publico-en-ingles-zona-este-sede-junin',
+    'FFYL|Tecnicatura Universitaria en Francés':'tecnicatura-universitaria-de-frances',
+    'FFYL|Geógrafo/a':'geografo-profesional',
     'FFYL|Ciclo de Profesorado para Profesionales Universitarios - Sede Central y San Rafael':'ciclo-de-profesorado-para-profesionales-universitarios',
     'FCP|Ciclo de Profesorado en Comunicación Social':'profesor-de-grado-universitario-en-comunicacion-social',
-    'FCP|Ciclo de Profesorado en Ciencia Política y Administración Pública':'profesorado-en-ciencia-politica-y-administracion-publica',
+    'FCP|Ciclo de Profesorado en Ciencia Política y Administración Pública':'profe-cpyap',
     'FCP|Ciclo de Profesorado en Sociología':'profesorado-en-sociologia',
     'FCP|Ciclo de Profesorado en Trabajo Social':'profesorado-en-trabajo-social',
     'FE|Profesorado Universitario de Pedagogía Terapéutica en Discapacidad Intelectual con Orientación en Discapacidad Motora':'profesorado-universitario-pedagogia-terapeutica-en-discapacidad-intelectual-orientacion-discapacidad-motora',
     'FE|Profesorado Universitario de Pedagogía Terapéutica en Discapacidad Visual':'profesorado-terapeutico-de-grado-universitario-en-discapacidad-visual',
-    'FCE|Contador Público':'contador-publico-plan-2026',
-    'FCE|Licenciatura en Logística':'licenciatura-en-logistica5970',
+    'FE|Profesorado Universitario de Educación Primaria':'profesorado-de-grado-universitario-en-educacion-primaria',
+    'FCE|Contador Público (Mendoza y San Rafael)':'contador-publico-plan-2026',
+    'FCE|Licenciatura en Logística (Mendoza y a distancia)':'licenciatura-en-logistica5970',
+    'FCE|Ciclo de Licenciatura en Gestión de Negocios Regionales (Gral. Alvear y Junín)':'licenciatura-en-gestion-de-negocios-regionales',
     'FCM|Ciclo de Licenciatura en Higiene y Seguridad en el Trabajo':'licenciatura-en-higiene-y-seguridad-en-el-trabajo',
     'IB|Ingeniería Nuclear':'https://www.ib.edu.ar/academicas/carreras-de-grado/ing-nuclear/',
     'IB|Ingeniería Mecánica':'https://www.ib.edu.ar/academicas/carreras-de-grado/ing-mecanica/',
@@ -238,7 +257,7 @@ Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicat
   };
   function slug(text){return text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\/a/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
   function careerUrl(name,u){
-    if(u==='FAD'&&name.startsWith('Licenciatura en Música - '))return 'https://fad.uncuyo.edu.ar/estudios/carrera/licenciatura-en-musica';
+    if(u==='FAD'&&name.startsWith('Licenciatura en Música - '))return 'https://fad.uncuyo.edu.ar/estudios/carrera/licenciatura-en-canto-composicion-musical-direccion-coral-o-instrumento';
     if(u==='FAD'&&name.startsWith('Licenciatura en Música Popular - '))return 'https://fad.uncuyo.edu.ar/estudios/carrera/licenciatura-en-musica-popular';
     const path=specialPaths[u+'|'+name];
     if(path&&path.startsWith('https://'))return path;
@@ -249,7 +268,8 @@ Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicat
   Object.entries(meta).forEach(([key,m])=>{const button=document.createElement('button');button.className='family';button.style.setProperty('--a',m[1]);button.innerHTML='<b>'+m[0]+'</b><small>'+data.filter(x=>x.family===key).length+' carreras</small><span class="arrow">→</span>';button.onclick=()=>chooseFamily(key);fam.append(button)});
   function setStep(number){[1,2,3].forEach(n=>document.querySelector('#s'+n).classList.toggle('current',n===number))}
   function show(id){['familyStage','facultyStage','careerStage'].forEach(x=>document.querySelector('#'+x).classList.toggle('visible',x===id));document.querySelector('#familyStage').style.display=id==='familyStage'?'block':'none';setTimeout(()=>document.querySelector('#'+id).scrollIntoView({behavior:'smooth',block:'start'}),30)}
-  function careerRow(x){return '<article class="career-row"><div><h3>'+x.name+'</h3><small>'+x.type+'</small></div><a class="career-link" href="'+x.url+'" target="_blank">Ampliar información</a></article>'}
+  function careerTitle(name){const match=name.match(/^(.*?)(\s*\((?:[^)]*(?:a distancia|Sede|Mendoza|San Rafael|Gral\.|Junín)[^)]*)\))$/i);return match?match[1]+' <span class="career-note">'+match[2]+'</span>':name}
+  function careerRow(x){return '<article class="career-row"><div><h3>'+careerTitle(x.name)+'</h3><small>'+x.type+'</small></div><a class="career-link" href="'+x.url+'" target="_blank">Ampliar información</a></article>'}
   function durationValue(text){const years=parseInt(text,10)+(text.includes('½')?0.5:0),months=(text.match(/(\d+) meses/)||[])[1];return years+(months?Number(months)/12:0)}
   function sortCareers(list){return [...list].sort((a,b)=>durationValue(a.duration)-durationValue(b.duration)||a.name.localeCompare(b.name,'es',{sensitivity:'base'}))}
   function careersByDuration(list){let previous='';return sortCareers(list).map(x=>{const separator=x.duration===previous?'':'<div class="duration-separator">'+x.duration+'</div>';previous=x.duration;return separator+careerRow(x)}).join('')}
