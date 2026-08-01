@@ -44,8 +44,9 @@
     .site-footer{flex-direction:column;align-items:center;gap:14px}
     .site-footer strong{font-size:14px}
     .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
-    .footer-link{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 15px;border-radius:999px;background:#475ae2;color:#f0eeff;font-size:12px;font-weight:800;text-decoration:none}
-    .footer-link:hover{filter:brightness(.93)}
+    .footer-link{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;text-decoration:none;transition:.2s}
+    .footer-link img{display:block;width:44px;height:44px;object-fit:contain}
+    .footer-link:hover{transform:translateY(-3px)}
     @media(max-width:620px){.header-logo img{height:47px;max-width:210px}}
     @media(max-width:620px){
       .career-list.sorted>.career-row,.duration-block>.career-row{grid-template-columns:minmax(0,1fr)}
@@ -56,8 +57,7 @@
       .unit-info{margin:0 0 24px;padding:17px 16px;border-left-width:5px}
       .unit-info p{font-size:13px;line-height:1.6}
       .map-link{width:100%;align-items:flex-start;line-height:1.45}
-      .footer-links{display:grid;grid-template-columns:1fr;width:100%}
-      .footer-link{width:100%;box-sizing:border-box}
+      .footer-links{display:flex;width:auto}
     }
   </style>
 </head>
@@ -67,10 +67,10 @@
   <section class="chooser" id="familyStage"><div class="chooser-head"><h2>¿Qué familia de carreras querés explorar?</h2><p>Cada color reúne campos de conocimiento y formas de intervención relacionadas.</p></div><div class="families" id="families"></div></section>
   <section class="stage" id="facultyStage"><div class="stage-inner"><button class="back" id="backFamily">Volver a las familias</button><div class="stage-title"><i class="color-mark"></i><div><h2 id="familyTitle"></h2><p>Elegí una facultad o instituto para ver su oferta.</p></div></div><div class="faculty-list" id="facultyList"></div></div></section>
   <section class="stage offer" id="careerStage"><div class="stage-inner"><button class="back" id="backFaculty">Volver a las facultades</button><div class="stage-title"><div class="stage-heading"><i class="color-mark"></i><div><h2 id="facultyTitle"></h2></div></div><div class="unit-actions"><a class="unit-action" id="siteButton" target="_blank">Sitio web</a><a class="unit-action" id="admissionButton" target="_blank">Ingreso</a></div></div><div class="unit-info" id="unitInfo"><p id="unitBio"></p><a class="map-link" id="mapLink" target="_blank" rel="noopener"><img class="map-pin" id="mapIcon" alt=""><span id="unitLocation"></span></a></div><div class="career-list" id="careerList"></div></div></section>
-  <footer class="site-footer"><strong>Descubrí UNCUYO</strong><div class="footer-links"><a class="footer-link" href="https://www.instagram.com/descubriuncuyo/" target="_blank" rel="noopener">Instagram · @descubriuncuyo</a><a class="footer-link" href="https://whatsapp.com/channel/0029VbA5YJZIXnlqf9kzAL3D" target="_blank" rel="noopener">Canal de WhatsApp</a></div></footer>
+  <footer class="site-footer"><strong>Descubrí UNCUYO</strong><div class="footer-links"><a class="footer-link" href="https://www.instagram.com/descubriuncuyo/" target="_blank" rel="noopener" aria-label="Instagram de Descubrí UNCUYO"><img src="assets/instagram-descubri.svg" alt="Instagram"></a><a class="footer-link" href="https://whatsapp.com/channel/0029VbA5YJZIXnlqf9kzAL3D" target="_blank" rel="noopener" aria-label="Canal de WhatsApp de Descubrí UNCUYO"><img src="assets/whatsapp-descubri.svg" alt="WhatsApp"></a></div></footer>
   <script>
   const meta={salud:['Ciencias de la Salud','#00c1cf','+'],artes:['Artes y Diseño','#ffc813','✦'],exactas:['Ciencias Exactas, Naturales y Tecnológicas','#9cc813','⌁'],economicas:['Ciencias Económicas, Jurídicas y de Seguridad','#f1063c','◇'],sociales:['Ciencias Sociales y Humanas','#b289ff','◌']};
-  const gpsIcons={salud:'assets/gps-salud.png',artes:'assets/gps-artes.png',exactas:'assets/gps-exactas.png',economicas:'assets/gps-economicas.png',sociales:'assets/gps-sociales.png'};
+  const gpsIcons={salud:'assets/pin-salud-agosto2026.png',artes:'assets/pin-artes-agosto2026.png',exactas:'assets/pin-exactas-agosto2026.png',economicas:'assets/pin-economicas-agosto2026.png',sociales:'assets/pin-sociales-agosto2026.png'};
   const units={FAD:['Facultad de Artes y Diseño','https://fad.uncuyo.edu.ar','https://fad.uncuyo.edu.ar/ingreso/'],FCAI:['Facultad de Ciencias Aplicadas a la Industria','https://fcai.uncuyo.edu.ar','https://fcai.uncuyo.edu.ar/ingreso/'],FCA:['Facultad de Ciencias Agrarias','https://fca.uncuyo.edu.ar','https://fca.uncuyo.edu.ar/ingreso/'],FCEN:['Facultad de Ciencias Exactas y Naturales','https://fcen.uncuyo.edu.ar','https://fcen.uncuyo.edu.ar/ingreso/'],FI:['Facultad de Ingeniería','https://ingenieria.uncuyo.edu.ar','https://ingenieria.uncuyo.edu.ar/ingreso/'],ITU:['Instituto Tecnológico Universitario','https://itu.uncuyo.edu.ar','https://itu.uncuyo.edu.ar/ingreso/'],IB:['Instituto Balseiro','https://www.ib.edu.ar/','https://www.ib.edu.ar/academicas/carreras-de-grado/ingreso-grado/'],FCP:['Facultad de Ciencias Políticas y Sociales','https://fcp.uncuyo.edu.ar','https://fcp.uncuyo.edu.ar/ingreso/'],FFYL:['Facultad de Filosofía y Letras','https://ffyl.uncuyo.edu.ar','https://ffyl.uncuyo.edu.ar/ingreso/'],FE:['Facultad de Educación','https://educacion.uncuyo.edu.ar','https://educacion.uncuyo.edu.ar/ingreso/'],FCM:['Facultad de Ciencias Médicas','https://fcm.uncuyo.edu.ar','https://fcm.uncuyo.edu.ar/ingreso/'],FO:['Facultad de Odontología','https://www.fodonto.uncuyo.edu.ar/','https://www.fodonto.uncuyo.edu.ar/ingreso'],FCE:['Facultad de Ciencias Económicas','https://fce.uncuyo.edu.ar','https://fce.uncuyo.edu.ar/ingreso/'],FD:['Facultad de Derecho','https://derecho.uncuyo.edu.ar','https://derecho.uncuyo.edu.ar/ingreso/'],IUSP:['Instituto Universitario de Seguridad Pública','https://iusp.uncuyo.edu.ar','https://iusp.uncuyo.edu.ar/ingreso/']};
   const unitProfiles={
     FAD:['Creada en 1980 al reunir las escuelas de Artes Plásticas, Música, Teatro y Cerámica, adoptó su nombre actual en 1998. Hoy integra formación y producción en artes, diseño y disciplinas proyectuales.','Centro Universitario, Ciudad de Mendoza','Facultad de Artes y Diseño UNCUYO'],
