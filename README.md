@@ -2,7 +2,7 @@
 
 Micrositio estático preparado para GitHub Pages. No necesita instalar programas ni compilar código.
 
-La versión incluida reproduce las 143 entradas de carreras, orientaciones y ciclos consignadas en la Guía de carreras UNCUYO suministrada. También incorpora los logos institucionales dentro de la carpeta `assets`, utiliza el fondo general `#f0eeff`, el azul `#475ae2` y el Camino institucional como fondo translúcido.
+La versión incluida reproduce las 143 entradas de carreras, orientaciones y ciclos consignadas en la Guía de carreras UNCUYO suministrada. También incorpora los logos institucionales dentro de la carpeta `assets`, utiliza el fondo general `#f0eeff`, textos en `#2b2b2d`, botones azules `#475ae2` y el Camino institucional como fondo translúcido.
 
 ## Publicarlo en GitHub Pages
 
