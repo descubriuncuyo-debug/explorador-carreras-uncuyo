@@ -38,12 +38,14 @@
     .career-note{color:#2b2b2d;font-weight:400;font-size:.9em}
     .unit-info{margin:-8px 0 30px;padding:20px 22px;border-left:6px solid var(--accent);border-radius:16px;background:#fff;color:#2b2b2d}
     .unit-info p{margin:0 0 13px;font-size:14px;line-height:1.65}
-    .map-link{display:inline-flex;align-items:center;gap:8px;color:#475ae2;font-size:13px;font-weight:700;text-decoration:none}
+    .map-link{display:inline-flex;align-items:center;gap:9px;color:#2b2b2d;font-size:13px;font-weight:700;text-decoration:none}
     .map-link:hover{text-decoration:underline}
-    .map-pin{display:block;width:18px;height:24px;object-fit:contain;flex:0 0 auto}
-    .discover-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px;padding-top:15px;border-top:1px solid #e2dff0}
-    .discover-link{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 14px;border-radius:999px;background:#f0eeff;color:#475ae2;font-size:12px;font-weight:800;text-decoration:none}
-    .discover-link:hover{background:#475ae2;color:#f0eeff}
+    .map-pin{display:block;width:21px;height:28px;object-fit:contain;flex:0 0 auto}
+    .site-footer{flex-direction:column;align-items:center;gap:14px}
+    .site-footer strong{font-size:14px}
+    .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+    .footer-link{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 15px;border-radius:999px;background:#475ae2;color:#f0eeff;font-size:12px;font-weight:800;text-decoration:none}
+    .footer-link:hover{filter:brightness(.93)}
     @media(max-width:620px){.header-logo img{height:47px;max-width:210px}}
     @media(max-width:620px){
       .career-list.sorted>.career-row,.duration-block>.career-row{grid-template-columns:minmax(0,1fr)}
@@ -54,8 +56,8 @@
       .unit-info{margin:0 0 24px;padding:17px 16px;border-left-width:5px}
       .unit-info p{font-size:13px;line-height:1.6}
       .map-link{width:100%;align-items:flex-start;line-height:1.45}
-      .discover-links{display:grid;grid-template-columns:1fr}
-      .discover-link{width:100%;box-sizing:border-box}
+      .footer-links{display:grid;grid-template-columns:1fr;width:100%}
+      .footer-link{width:100%;box-sizing:border-box}
     }
   </style>
 </head>
@@ -64,8 +66,8 @@
   <section class="hero"><div class="eyebrow">GUÍA DE CARRERAS</div><h1>Descubrí toda la oferta educativa de la UNCUYO.</h1><p class="lead">Un recorrido para conocer las familias de carreras, sus facultades e institutos y toda la oferta académica de la Universidad Nacional de Cuyo.</p><div class="steps"><button class="step current" id="s1" type="button"><span>1</span>Familia</button><i class="step-line"></i><button class="step disabled" id="s2" type="button"><span>2</span>Facultad</button><i class="step-line"></i><button class="step disabled" id="s3" type="button"><span>3</span>Carreras</button></div></section>
   <section class="chooser" id="familyStage"><div class="chooser-head"><h2>¿Qué familia de carreras querés explorar?</h2><p>Cada color reúne campos de conocimiento y formas de intervención relacionadas.</p></div><div class="families" id="families"></div></section>
   <section class="stage" id="facultyStage"><div class="stage-inner"><button class="back" id="backFamily">Volver a las familias</button><div class="stage-title"><i class="color-mark"></i><div><h2 id="familyTitle"></h2><p>Elegí una facultad o instituto para ver su oferta.</p></div></div><div class="faculty-list" id="facultyList"></div></div></section>
-  <section class="stage offer" id="careerStage"><div class="stage-inner"><button class="back" id="backFaculty">Volver a las facultades</button><div class="stage-title"><div class="stage-heading"><i class="color-mark"></i><div><h2 id="facultyTitle"></h2></div></div><div class="unit-actions"><a class="unit-action" id="siteButton" target="_blank">Sitio web</a><a class="unit-action" id="admissionButton" target="_blank">Ingreso</a></div></div><div class="unit-info" id="unitInfo"><p id="unitBio"></p><a class="map-link" id="mapLink" target="_blank" rel="noopener"><img class="map-pin" id="mapIcon" alt=""><span id="unitLocation"></span></a><div class="discover-links"><a class="discover-link" href="https://www.instagram.com/descubriuncuyo/" target="_blank" rel="noopener">Instagram · @descubriuncuyo</a><a class="discover-link" href="https://whatsapp.com/channel/0029VbA5YJZIXnlqf9kzAL3D" target="_blank" rel="noopener">Canal de WhatsApp</a></div></div><div class="career-list" id="careerList"></div></div></section>
-  <footer>Descubrí UNCUYO</footer>
+  <section class="stage offer" id="careerStage"><div class="stage-inner"><button class="back" id="backFaculty">Volver a las facultades</button><div class="stage-title"><div class="stage-heading"><i class="color-mark"></i><div><h2 id="facultyTitle"></h2></div></div><div class="unit-actions"><a class="unit-action" id="siteButton" target="_blank">Sitio web</a><a class="unit-action" id="admissionButton" target="_blank">Ingreso</a></div></div><div class="unit-info" id="unitInfo"><p id="unitBio"></p><a class="map-link" id="mapLink" target="_blank" rel="noopener"><img class="map-pin" id="mapIcon" alt=""><span id="unitLocation"></span></a></div><div class="career-list" id="careerList"></div></div></section>
+  <footer class="site-footer"><strong>Descubrí UNCUYO</strong><div class="footer-links"><a class="footer-link" href="https://www.instagram.com/descubriuncuyo/" target="_blank" rel="noopener">Instagram · @descubriuncuyo</a><a class="footer-link" href="https://whatsapp.com/channel/0029VbA5YJZIXnlqf9kzAL3D" target="_blank" rel="noopener">Canal de WhatsApp</a></div></footer>
   <script>
   const meta={salud:['Ciencias de la Salud','#00c1cf','+'],artes:['Artes y Diseño','#ffc813','✦'],exactas:['Ciencias Exactas, Naturales y Tecnológicas','#9cc813','⌁'],economicas:['Ciencias Económicas, Jurídicas y de Seguridad','#f1063c','◇'],sociales:['Ciencias Sociales y Humanas','#b289ff','◌']};
   const gpsIcons={salud:'assets/gps-salud.png',artes:'assets/gps-artes.png',exactas:'assets/gps-exactas.png',economicas:'assets/gps-economicas.png',sociales:'assets/gps-sociales.png'};
