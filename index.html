@@ -117,12 +117,157 @@
       .mooc-mini-button{width:100%}
     }
 </style>
+
+<style id="ov-20260807-final-soft-center">
+/* Camino único: apoyado en el borde inferior y transparente en todas las pantallas. */
+.global-path-layer,
+main>section:nth-of-type(2n) .global-path-layer,
+main>section:nth-of-type(3n) .global-path-layer,
+main>section:nth-of-type(5n) .global-path-layer,
+.logo-cover .global-path-layer,
+.closing-question .global-path-layer,
+.phrase-final .global-path-layer,
+.digital-overview .global-path-layer,
+.platform-stage .global-path-layer,
+.course-slide .global-path-layer,
+.territory-slide .global-path-layer,
+.human-rights-slide .global-path-layer{
+  inset:auto -2% -2px -2%!important;
+  width:104%!important;
+  height:43%!important;
+  background-position:center bottom!important;
+  background-size:100% auto!important;
+  background-repeat:no-repeat!important;
+  opacity:.105!important;
+  transform:none!important;
+  mix-blend-mode:normal!important;
+  filter:saturate(.92) contrast(1.01)!important;
+}
+.logo-cover .global-path-layer,
+.closing-question .global-path-layer,
+.phrase-final .global-path-layer,
+.digital-overview .global-path-layer{
+  opacity:.13!important;
+}
+
+/* Título del ecosistema: centrado, en dos líneas, sobre el mismo eje. */
+.digital-overview>.section-kicker,
+.digital-overview>h2{
+  position:relative!important;
+  top:0!important;
+  width:100%!important;
+  max-width:none!important;
+  align-self:center!important;
+  text-align:center!important;
+}
+.digital-overview h2{
+  margin:8px auto 28px!important;
+  white-space:normal!important;
+  line-height:1.08!important;
+  font-size:clamp(38px,4.4vw,64px)!important;
+}
+.digital-overview>.story-grid{
+  position:relative!important;
+  top:0!important;
+}
+
+/* Entradas de tarjetas más suaves y breves. */
+.reveal-card{
+  opacity:0!important;
+  transform:translateY(6px)!important;
+  transition:opacity .68s ease, transform .68s cubic-bezier(.22,.72,.28,1)!important;
+}
+.active-slide .reveal-card:not(.visible){
+  opacity:0!important;
+  transform:translateY(6px)!important;
+}
+.active-slide .reveal-card.visible{
+  opacity:1!important;
+  transform:translateY(0)!important;
+}
+.active-slide .point-stat,
+.active-slide .territory-stat,
+.active-slide .web-stat,
+.active-slide .social-metric,
+.active-slide .mooc-highlight,
+.active-slide .course-partner,
+.active-slide .aula-partner,
+.active-slide .course-screen-access,
+.active-slide .course-screen-button,
+.active-slide .human-rights-media .course-access,
+.active-slide .applicant-law{
+  animation:finalGentleRise .62s cubic-bezier(.22,.72,.28,1) both!important;
+}
+@keyframes finalGentleRise{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Entrada discreta para el código QR. */
+.qr-slide>img{
+  opacity:0;
+  transform:translateY(7px);
+}
+.qr-slide.active-slide>img{
+  animation:qrSoftEntry .72s .16s cubic-bezier(.22,.72,.28,1) both!important;
+}
+@keyframes qrSoftEntry{
+  from{opacity:0;transform:translateY(7px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Estadísticas de Expos: mismo botón que las tarjetas de la pantalla siguiente. */
+.territory-bottom-stats{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:10px!important;
+  width:100%!important;
+  margin-top:auto!important;
+  padding-top:14px!important;
+}
+.territory-bottom-stats .territory-stat{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  min-height:50px!important;
+  margin:0!important;
+  padding:9px 12px!important;
+  border-radius:13px!important;
+  background:#2033B9!important;
+  color:#F0EEFF!important;
+  box-shadow:none!important;
+  text-align:center!important;
+}
+.territory-bottom-stats .territory-stat strong{
+  color:#F0EEFF!important;
+  font-size:12px!important;
+  line-height:1.2!important;
+  font-weight:900!important;
+}
+
+.phrase-final .small-thanks{
+  letter-spacing:.01em!important;
+}
+
+@media(max-width:900px){
+  .global-path-layer,
+  main>section:nth-of-type(2n) .global-path-layer,
+  main>section:nth-of-type(3n) .global-path-layer,
+  main>section:nth-of-type(5n) .global-path-layer{
+    height:35%!important;
+    background-size:auto 100%!important;
+  }
+  .digital-overview h2{font-size:clamp(32px,7vw,52px)!important}
+}
+</style>
+
 </head>
 <body>
   <header><a class="header-logo" href="./" aria-label="Volver al inicio de Descubrí UNCUYO"><img src="assets/descubri-puente.svg" alt="Descubrí UNCUYO, tu puente a la universidad"></a><a class="official-button" href="https://www.uncuyo.edu.ar/ingreso/" target="_blank">Sitio oficial</a></header>
   <section class="hero"><div class="eyebrow">GUÍA DE CARRERAS</div><h1>Descubrí toda la oferta educativa de la UNCUYO.</h1><p class="lead">Un recorrido para conocer las familias de carreras, sus facultades e institutos y toda la oferta académica de la Universidad Nacional de Cuyo.</p><div class="steps"><button class="step current" id="s1" type="button"><span>1</span>Familia</button><i class="step-line"></i><button class="step disabled" id="s2" type="button"><span>2</span>Facultad</button><i class="step-line"></i><button class="step disabled" id="s3" type="button"><span>3</span>Carreras</button></div></section>
   <section class="chooser" id="familyStage"><div class="chooser-head"><h2>¿Qué familia de carreras querés explorar?</h2><p>Cada color reúne campos de conocimiento y formas de intervención relacionadas.</p></div><div class="families" id="families"></div><div class="mooc-mini" aria-label="Invitación al MOOC de Orientación Vocacional">
-  <div class="mooc-mini-copy"><strong>MOOC de Orientación Vocacional</strong><span>Curso virtual, abierto y con certificación para acompañarte en la elección de tu carrera.</span></div>
+  <div class="mooc-mini-copy"><strong>MOOC de Orientación Vocacional</strong><span>Curso virtual, abierto y con certificación. Una propuesta para comenzar a construir un proyecto vocacional y ocupacional propio mediante el autoconocimiento, la identificación de intereses y el análisis crítico de la oferta académica de la UNCUYO.</span></div>
   <a class="mooc-mini-button" href="https://aulaabierta.uncuyo.edu.ar/" target="_blank" rel="noopener">Conocer el curso</a>
 </div></section>
   <section class="stage" id="facultyStage"><div class="stage-inner"><button class="back" id="backFamily">Volver a las familias</button><div class="stage-title"><i class="color-mark"></i><div><h2 id="familyTitle"></h2><p>Elegí una facultad o instituto para ver su oferta.</p></div></div><div class="faculty-list" id="facultyList"></div></div></section>
