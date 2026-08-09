@@ -344,11 +344,18 @@ main>section:nth-of-type(5n) .global-path-layer,
   .hero-map-link{margin:12px auto 0;justify-content:center;width:max-content;max-width:100%;font-size:12px}
   .hero-map-link .map-pin{width:20px;height:27px}
   .hero .steps{margin-top:27px}
+  .career-count-badge{display:inline-flex;align-items:center;justify-content:center;margin:22px auto 0;padding:11px 20px;border-radius:999px;background:#475ae2;color:#f0eeff;font-size:14px;font-weight:800;box-shadow:0 10px 24px rgba(71,90,226,.18)}
+  .faculty-title-logo{width:76px;height:62px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:9px;border-radius:13px;background:#fff;box-shadow:0 8px 22px rgba(43,43,45,.1)}
+  .faculty-title-logo img{display:block;max-width:100%;max-height:44px;width:auto;height:auto;object-fit:contain}
   @media(max-width:620px){
     .uncuyo-intro{margin-top:15px}
     .uncuyo-intro p{font-size:12px;line-height:1.55}
     .hero-map-link{width:auto;justify-content:center;text-align:left;font-size:11px}
     .hero .steps{margin-top:24px}
+    .career-count-badge{margin-top:18px;font-size:13px;padding:10px 17px}
+    .stage-heading{align-items:flex-start;flex-wrap:wrap}
+    .faculty-title-logo{width:64px;height:54px;padding:8px}
+    .faculty-title-logo img{max-height:38px}
   }
 </style>
 </head>
@@ -608,6 +615,9 @@ Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicat
   }
   function chooseFamily(key){selectedFamily=key;selectedFaculty='';const m=meta[key],codes=[...new Set(data.filter(x=>x.family===key).map(x=>Object.keys(units).find(u=>units[u][0]===x.faculty)))];document.querySelector('#familyTitle').textContent=m[0];document.querySelector('#facultyStage').style.setProperty('--accent',m[1]);document.querySelector('#facultyList').innerHTML=codes.map(code=>'<button class="faculty-btn" data-code="'+code+'"><span class="faculty-logo"><img src="'+logos[code]+'" alt="Logo '+units[code][0]+'"></span><span class="faculty-label"><b>'+units[code][0]+'</b></span></button>').join('');document.querySelectorAll('.faculty-btn').forEach(b=>b.onclick=()=>chooseFaculty(b.dataset.code));document.querySelector('#s2').classList.remove('disabled');document.querySelector('#s3').classList.add('disabled');setStep(2);show('facultyStage')}
   function chooseFaculty(code){selectedFaculty=code;const list=data.filter(x=>x.family===selectedFamily&&x.faculty===units[code][0]),m=meta[selectedFamily],profile=unitProfiles[code],careerList=document.querySelector('#careerList');document.querySelector('#facultyTitle').textContent=units[code][0];document.querySelector('#careerStage').style.setProperty('--accent',m[1]);document.querySelector('#unitBio').textContent=profile[0];document.querySelector('#unitLocation').textContent=profile[1];document.querySelector('#mapLink').href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(profile[2]);document.querySelector('#mapIcon').src=gpsIcons[selectedFamily];careerList.classList.toggle('grouped',code==='FAD');careerList.classList.add('sorted');careerList.innerHTML=renderCareers(list,code);document.querySelector('#siteButton').href=units[code][1];document.querySelector('#admissionButton').href=units[code][2];document.querySelector('#s3').classList.remove('disabled');setStep(3);show('careerStage')}
+  const careerCountBadge=document.createElement('div');careerCountBadge.className='career-count-badge';careerCountBadge.textContent='+ de 140 carreras';document.querySelector('.hero .lead').insertAdjacentElement('afterend',careerCountBadge);
+  const facultyTitleLogo=document.createElement('span');facultyTitleLogo.className='faculty-title-logo';facultyTitleLogo.innerHTML='<img src="" alt="">';document.querySelector('#facultyTitle').closest('div').insertAdjacentElement('beforebegin',facultyTitleLogo);
+  new MutationObserver(()=>{if(!selectedFaculty)return;const img=facultyTitleLogo.querySelector('img');img.src=logos[selectedFaculty];img.alt='Logo '+units[selectedFaculty][0]}).observe(document.querySelector('#facultyTitle'),{childList:true});
   document.querySelector('#s1').onclick=()=>{setStep(1);show('familyStage')};document.querySelector('#s2').onclick=()=>{if(selectedFamily){setStep(2);show('facultyStage')}};document.querySelector('#s3').onclick=()=>{if(selectedFaculty)chooseFaculty(selectedFaculty)};document.querySelector('#backFamily').onclick=()=>{setStep(1);show('familyStage')};document.querySelector('#backFaculty').onclick=()=>{setStep(2);show('facultyStage')};document.querySelector('#familyStage').classList.add('visible');
   </script>
 </body></html>
