@@ -358,6 +358,16 @@ main>section:nth-of-type(5n) .global-path-layer,
     .faculty-title-logo img{max-height:54px}
   }
 </style>
+
+<style id="intermediate-titles-style">
+  .intermediate-title{margin-top:14px;padding:13px 0 0 13px;border-top:1px solid #e2dfec;border-left:3px solid var(--accent);display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .intermediate-copy{min-width:0}
+  .intermediate-label{display:block;margin-bottom:4px;color:#6d6878;font-size:11px;font-weight:800;line-height:1.3}
+  .intermediate-title strong{display:block;color:#2b2b2d;font-size:14px;line-height:1.4}
+  .intermediate-link{flex:0 0 auto;text-decoration:none;border:1px solid var(--accent);color:var(--accent);border-radius:10px;padding:9px 11px;font-size:11px;font-weight:800;white-space:nowrap}
+  .intermediate-link:hover{background:color-mix(in srgb,var(--accent) 8%,transparent)}
+  @media(max-width:620px){.intermediate-title{align-items:flex-start;flex-direction:column}.intermediate-link{width:100%;box-sizing:border-box;text-align:center}}
+</style>
 </head>
 <body>
   <header><a class="header-logo" href="./" aria-label="Volver al inicio de Descubrí UNCUYO"><img src="assets/descubri-puente.svg" alt="Descubrí UNCUYO, tu puente a la universidad"></a><a class="official-button" href="https://www.uncuyo.edu.ar/ingreso/" target="_blank">Sitio oficial</a></header>
@@ -525,13 +535,9 @@ Tecnicatura Universitaria en Quirófano|3 años|FCM|salud|Tecnicatura
 Tecnicatura Universitaria en Anestesia|3 años|FCM|salud|Tecnicatura
 Odontología|5 años|FO|salud|Carrera de grado
 Licenciatura en Administración|5 años|FCE|economicas|Licenciatura
-Analista Universitario/a en Administración|2 años|FCE|economicas|Título intermedio
 Licenciatura en Economía|4 años|FCE|economicas|Licenciatura
-Analista Universitario/a en Economía y Finanzas|2 años|FCE|economicas|Título intermedio
 Licenciatura en Logística (Mendoza y a distancia)|4 años|FCE|economicas|Licenciatura
-Tecnicatura Universitaria en Administración de Almacenes|2½ años|FCE|economicas|Título intermedio
 Contador Público (Mendoza y San Rafael)|4 años|FCE|economicas|Carrera de grado
-Analista Universitario/a Contable|2 años|FCE|economicas|Título intermedio
 Ciclo de Licenciatura en Gestión de Negocios Regionales (Gral. Alvear y Junín)|2½ años|FCE|economicas|Ciclo de Licenciatura
 Abogacía|5 años|FD|economicas|Carrera de grado
 Tecnicatura Universitaria en Administración de Edificios de Propiedad Horizontal y Conjuntos Inmobiliarios|2 años|FD|economicas|Tecnicatura
@@ -585,17 +591,19 @@ Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicat
     'FE|Profesorado Universitario de Pedagogía Terapéutica en Discapacidad Visual':'profesorado-terapeutico-de-grado-universitario-en-discapacidad-visual',
     'FE|Profesorado Universitario de Educación Primaria':'profesorado-de-grado-universitario-en-educacion-primaria',
     'FCE|Contador Público (Mendoza y San Rafael)':'contador-publico-plan-2026',
-    'FCE|Analista Universitario/a Contable':'https://fce.uncuyo.edu.ar/estudios/titulo/analista-universitarioa-contable',
-    'FCE|Analista Universitario/a en Administración':'https://fce.uncuyo.edu.ar/estudios/titulo/analista-universitarioa-en-administracion',
-    'FCE|Analista Universitario/a en Economía y Finanzas':'https://fce.uncuyo.edu.ar/estudios/titulo/analista-universitarioa-en-economia-y-finanzas',
     'FCE|Licenciatura en Logística (Mendoza y a distancia)':'licenciatura-en-logistica5970',
-    'FCE|Tecnicatura Universitaria en Administración de Almacenes':'https://fce.uncuyo.edu.ar/estudios/titulo/licenciatura-en-logistica2504',
     'FCE|Ciclo de Licenciatura en Gestión de Negocios Regionales (Gral. Alvear y Junín)':'licenciatura-en-gestion-de-negocios-regionales',
     'FCM|Ciclo de Licenciatura en Higiene y Seguridad en el Trabajo':'licenciatura-en-higiene-y-seguridad-en-el-trabajo',
     'IB|Ingeniería Nuclear':'https://www.ib.edu.ar/academicas/carreras-de-grado/ing-nuclear/',
     'IB|Ingeniería Mecánica':'https://www.ib.edu.ar/academicas/carreras-de-grado/ing-mecanica/',
     'IB|Ingeniería en Telecomunicaciones':'https://www.ib.edu.ar/academicas/carreras-de-grado/ing-telecomunicaciones/',
     'IB|Licenciatura en Física':'https://www.ib.edu.ar/academicas/carreras-de-grado/carrera-de-grado_licfisica/'
+  };
+  const intermediateTitles={
+    'FCE|Contador Público (Mendoza y San Rafael)':{name:'Analista Universitario/a Contable',duration:'2 años',url:'https://fce.uncuyo.edu.ar/estudios/titulo/analista-universitarioa-contable'},
+    'FCE|Licenciatura en Administración':{name:'Analista Universitario/a en Administración',duration:'2 años',url:'https://fce.uncuyo.edu.ar/estudios/titulo/analista-universitarioa-en-administracion'},
+    'FCE|Licenciatura en Logística (Mendoza y a distancia)':{name:'Tecnicatura Universitaria en Administración de Almacenes',duration:'2,5 años',url:'https://fce.uncuyo.edu.ar/estudios/titulo/licenciatura-en-logistica2504'},
+    'FCE|Licenciatura en Economía':{name:'Analista Universitario/a en Economía y Finanzas',duration:'2 años',url:'https://fce.uncuyo.edu.ar/estudios/titulo/analista-universitarioa-en-economia-y-finanzas'}
   };
   function slug(text){return text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\/a/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
   function careerUrl(name,u){
@@ -611,7 +619,7 @@ Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicat
   function setStep(number){[1,2,3].forEach(n=>document.querySelector('#s'+n).classList.toggle('current',n===number))}
   function show(id){['familyStage','facultyStage','careerStage'].forEach(x=>document.querySelector('#'+x).classList.toggle('visible',x===id));document.querySelector('#familyStage').style.display=id==='familyStage'?'block':'none';const uncuyoIntro=document.querySelector('.uncuyo-intro');if(uncuyoIntro)uncuyoIntro.style.display=id==='familyStage'?'grid':'none';setTimeout(()=>document.querySelector('#'+id).scrollIntoView({behavior:'smooth',block:'start'}),30)}
   function careerTitle(name){const match=name.match(/^(.*?)(\s*\((?:[^)]*(?:a distancia|Sede|Mendoza|San Rafael|Gral\.|Junín)[^)]*)\))$/i);return match?match[1]+' <span class="career-note">'+match[2]+'</span>':name}
-  function careerRow(x){return '<article class="career-row"><div><h3>'+careerTitle(x.name)+'</h3><small>'+x.type+'</small></div><a class="career-link" href="'+x.url+'" target="_blank">Ampliar información</a></article>'}
+  function careerRow(x){const t=intermediateTitles[x.unit+'|'+x.name],intermediate=t?'<div class="intermediate-title"><div class="intermediate-copy"><span class="intermediate-label">Título intermedio · '+t.duration+'</span><strong>'+t.name+'</strong></div><a class="intermediate-link" href="'+t.url+'" target="_blank" rel="noopener">Ampliar información</a></div>':'';return '<article class="career-row"><div><h3>'+careerTitle(x.name)+'</h3><small>'+x.type+'</small>'+intermediate+'</div><a class="career-link" href="'+x.url+'" target="_blank">Ampliar información</a></article>'}
   function durationValue(text){const years=parseInt(text,10)+(text.includes('½')?0.5:0),months=(text.match(/(\d+) meses/)||[])[1];return years+(months?Number(months)/12:0)}
   function sortCareers(list){return [...list].sort((a,b)=>durationValue(a.duration)-durationValue(b.duration)||a.name.localeCompare(b.name,'es',{sensitivity:'base'}))}
   function careersByDuration(list){let previous='';return sortCareers(list).map(x=>{const separator=x.duration===previous?'':'<div class="duration-separator">'+x.duration+'</div>';previous=x.duration;return separator+careerRow(x)}).join('')}
