@@ -360,13 +360,14 @@ main>section:nth-of-type(5n) .global-path-layer,
 </style>
 
 <style id="intermediate-titles-style">
-  .intermediate-title{margin-top:14px;padding:13px 0 0 13px;border-top:1px solid #e2dfec;border-left:3px solid var(--accent);display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .career-row.has-intermediate{align-items:start}
+  .intermediate-title{grid-column:1 / -1;margin-top:14px;padding:13px 0 0 13px;border-top:1px solid #e2dfec;border-left:3px solid var(--accent);display:grid;grid-template-columns:minmax(0,1fr) 190px;align-items:center;gap:20px}
   .intermediate-copy{min-width:0}
-  .intermediate-label{display:block;margin-bottom:4px;color:#6d6878;font-size:11px;font-weight:800;line-height:1.3}
-  .intermediate-title strong{display:block;color:#2b2b2d;font-size:14px;line-height:1.4}
-  .intermediate-link{flex:0 0 auto;text-decoration:none;border:1px solid var(--accent);color:var(--accent);border-radius:10px;padding:9px 11px;font-size:11px;font-weight:800;white-space:nowrap}
+  .intermediate-label{display:block;margin-top:6px;margin-bottom:4px;color:#2b2b2d;font-size:13.3333px;font-weight:400;line-height:normal}
+  .intermediate-title strong{display:block;color:var(--accent);font-size:14px;line-height:1.4}
+  .intermediate-link{text-align:center;text-decoration:none;border:1px solid var(--accent);color:var(--accent);border-radius:10px;padding:9px 11px;font-size:11px;font-weight:800;white-space:nowrap;width:100%;box-sizing:border-box}
   .intermediate-link:hover{background:color-mix(in srgb,var(--accent) 8%,transparent)}
-  @media(max-width:620px){.intermediate-title{align-items:flex-start;flex-direction:column}.intermediate-link{width:100%;box-sizing:border-box;text-align:center}}
+  @media(max-width:620px){.intermediate-title{grid-template-columns:1fr;gap:11px;padding-left:0;border-left:0}.intermediate-link{width:100%;text-align:center}}
 </style>
 </head>
 <body>
@@ -619,7 +620,7 @@ Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicat
   function setStep(number){[1,2,3].forEach(n=>document.querySelector('#s'+n).classList.toggle('current',n===number))}
   function show(id){['familyStage','facultyStage','careerStage'].forEach(x=>document.querySelector('#'+x).classList.toggle('visible',x===id));document.querySelector('#familyStage').style.display=id==='familyStage'?'block':'none';const uncuyoIntro=document.querySelector('.uncuyo-intro');if(uncuyoIntro)uncuyoIntro.style.display=id==='familyStage'?'grid':'none';setTimeout(()=>document.querySelector('#'+id).scrollIntoView({behavior:'smooth',block:'start'}),30)}
   function careerTitle(name){const match=name.match(/^(.*?)(\s*\((?:[^)]*(?:a distancia|Sede|Mendoza|San Rafael|Gral\.|Junín)[^)]*)\))$/i);return match?match[1]+' <span class="career-note">'+match[2]+'</span>':name}
-  function careerRow(x){const t=intermediateTitles[x.unit+'|'+x.name],intermediate=t?'<div class="intermediate-title"><div class="intermediate-copy"><span class="intermediate-label">Título intermedio · '+t.duration+'</span><strong>'+t.name+'</strong></div><a class="intermediate-link" href="'+t.url+'" target="_blank" rel="noopener">Ampliar información</a></div>':'';return '<article class="career-row"><div><h3>'+careerTitle(x.name)+'</h3><small>'+x.type+'</small>'+intermediate+'</div><a class="career-link" href="'+x.url+'" target="_blank">Ampliar información</a></article>'}
+  function careerRow(x){const t=intermediateTitles[x.unit+'|'+x.name],intermediate=t?'<div class="intermediate-title"><div class="intermediate-copy"><span class="intermediate-label">Título intermedio · '+t.duration+'</span><strong>'+t.name+'</strong></div><a class="intermediate-link" href="'+t.url+'" target="_blank" rel="noopener">Ampliar información</a></div>':'';return '<article class="career-row'+(t?' has-intermediate':'')+'"><div><h3>'+careerTitle(x.name)+'</h3><small>'+x.type+'</small></div><a class="career-link" href="'+x.url+'" target="_blank">Ampliar información</a>'+intermediate+'</article>'}
   function durationValue(text){const years=parseInt(text,10)+(text.includes('½')?0.5:0),months=(text.match(/(\d+) meses/)||[])[1];return years+(months?Number(months)/12:0)}
   function sortCareers(list){return [...list].sort((a,b)=>durationValue(a.duration)-durationValue(b.duration)||a.name.localeCompare(b.name,'es',{sensitivity:'base'}))}
   function careersByDuration(list){let previous='';return sortCareers(list).map(x=>{const separator=x.duration===previous?'':'<div class="duration-separator">'+x.duration+'</div>';previous=x.duration;return separator+careerRow(x)}).join('')}
