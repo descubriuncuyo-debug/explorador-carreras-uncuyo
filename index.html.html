@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Explorador de carreras UNCUYO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#2b2b2d;--muted:#2b2b2d;--line:#cbcbed;--paper:#f0eeff}*{box-sizing:border-box}body,button,input,select{font-family:'Montserrat',Arial,sans-serif}body{margin:0;color:var(--ink)}body:before{content:"";position:fixed;inset:105px 0 0 0;height:auto;background:url('assets/camino.svg') center bottom/110% auto no-repeat;opacity:.16;pointer-events:none;z-index:0}header,section,footer{position:relative;z-index:1}header{padding:0 6vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.eyebrow{color:#475ae2;font-weight:900;font-size:11px;letter-spacing:.15em}.lead{color:var(--muted);font-size:18px;line-height:1.55;max-width:650px}footer{padding:35px 7vw;border-top:1px solid var(--line);display:flex;justify-content:center;text-align:center;font-size:13px;color:#2b2b2d;font-weight:700}
+    @media(max-width:950px){.hero{grid-template-columns:1fr}.orb{display:none}.families{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){header{height:64px}.brand small{display:none}.hero,.section{padding:48px 22px}.hero{min-height:auto}.hero h1{font-size:44px}.families,.grid{grid-template-columns:1fr}.cathead{align-items:flex-start;flex-direction:column}.filters{width:100%;flex-wrap:wrap}.filters select{flex:1}.card{min-height:205px}footer{flex-direction:column}.facts b{width:auto;display:block;margin-bottom:4px}}
+    /* Recorrido guiado: familia → unidad académica → carreras */
+    body{background:#f0eeff}header{height:104px;background:#f0eeff}.header-logo{display:flex;align-items:center}.header-logo img{display:block;height:82px;width:auto;max-width:185px;object-fit:contain}.official-button,.unit-action{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:0;border-radius:999px;background:#475ae2;color:#f0eeff;padding:13px 21px;font-size:12px;font-weight:800;white-space:nowrap}.hero{min-height:310px;display:block;text-align:center;padding:52px 7vw 62px;background:transparent}.hero h1{max-width:920px;margin:14px auto 22px;font-size:clamp(42px,5vw,70px);color:#2b2b2d}.hero .lead{max-width:720px;margin:0 auto}.steps{display:flex;justify-content:center;align-items:center;gap:10px;margin:38px auto 0}.step{display:flex;align-items:center;gap:8px;color:#475ae2;font-size:12px;font-weight:700;border:0;background:transparent;padding:5px;cursor:pointer}.step span{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;border:1px solid #475ae2}.step.current span{background:#475ae2;color:#f0eeff;border-color:#475ae2}.step.disabled{opacity:.38;cursor:not-allowed}.step-line{width:38px;height:1px;background:#9fa8ee}.chooser{padding:58px 7vw 72px}.chooser-head{text-align:center;max-width:760px;margin:0 auto 32px}.chooser-head h2{font-size:34px;margin:8px 0 10px;letter-spacing:-.035em;color:#2b2b2d}.chooser-head p{color:var(--muted);line-height:1.55}.families{display:grid;max-width:1180px;margin:auto;grid-template-columns:repeat(5,1fr);gap:13px}.family{min-height:235px;border:0;border-radius:28px;padding:26px;color:#f0eeff;background:var(--a);box-shadow:none;text-align:left;display:flex;flex-direction:column;cursor:pointer;transition:.2s}.family:hover,.family.on{border:0;box-shadow:0 18px 40px color-mix(in srgb,var(--a) 32%,transparent);transform:translateY(-7px)}.family b{font-size:19px;margin:0 0 10px;line-height:1.2}.family small{color:#f0eeff;font-weight:600;margin-top:auto}.arrow{font-size:25px;line-height:1;margin-top:14px;color:#f0eeff}.stage{display:none;padding:58px 7vw 76px;animation:rise .35s ease;background:transparent}.stage.visible{display:block}.stage-inner{max-width:1120px;margin:auto}.back{border:0;background:#475ae2;color:#f0eeff;padding:10px 16px;border-radius:999px;margin-bottom:22px;font-weight:700;cursor:pointer}.stage-title{display:flex;align-items:center;justify-content:space-between;gap:22px;margin-bottom:28px}.stage-heading{display:flex;align-items:center;gap:16px}.color-mark{width:12px;height:58px;border-radius:10px;background:var(--accent);flex:0 0 auto}.stage-title h2{font-size:35px;letter-spacing:-.035em;margin:0;color:#2b2b2d}.stage-title p{color:var(--muted);margin:5px 0 0}.unit-actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}.unit-action{background:var(--accent);color:#f0eeff;border-radius:12px}.unit-action[aria-disabled="true"]{opacity:.6}.faculty-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.faculty-btn{min-height:185px;text-align:left;border:0;border-radius:20px;background:var(--accent);padding:22px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;gap:18px;transition:.2s}.faculty-btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px color-mix(in srgb,var(--accent) 28%,transparent)}.faculty-logo{height:78px;width:100%;display:flex;align-items:center;justify-content:flex-start;background:#fff;border-radius:14px;padding:12px}.faculty-logo img{display:block;max-width:100%;max-height:58px;width:auto;height:auto;object-fit:contain;object-position:left center}.faculty-label{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;color:#f0eeff}.faculty-btn b{font-size:14px;line-height:1.35}.faculty-btn span{font-size:24px;color:#f0eeff}.offer{background:transparent}.career-list{border-top:1px solid #c9c9ed}.career-row{display:grid;grid-template-columns:minmax(0,1fr) 150px 190px;align-items:center;gap:20px;padding:22px 18px;border-bottom:1px solid #d6d3e5;background:#fff}.career-row:first-child{border-radius:18px 18px 0 0}.career-row:last-child{border-radius:0 0 18px 18px}.career-row h3{font-size:18px;margin:0;color:#2b2b2d}.career-row small{display:block;margin-top:6px;color:#2b2b2d}.duration{font-size:13px;font-weight:700;color:#2b2b2d}.career-link{text-align:center;text-decoration:none;border:0;background:var(--accent);color:#f0eeff;border-radius:12px;padding:13px 14px;font-size:12px;font-weight:800}.career-link:hover{filter:brightness(.94)}@keyframes rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+    @media(max-width:950px){.families{grid-template-columns:repeat(2,1fr)}.faculty-list{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){body:before{inset:92px 0 0;height:auto;background-position:center bottom;background-size:auto min(58vh,430px)}header{height:78px;padding:0 20px}.header-logo img{height:40px;max-width:190px}.official-button{padding:10px 13px;font-size:10px}.hero{padding:36px 22px 48px}.hero h1{font-size:40px}.steps{gap:4px}.step{font-size:10px}.step-line{width:14px}.chooser,.stage{padding:44px 22px 58px}.families,.faculty-list{grid-template-columns:1fr}.family{min-height:180px}.stage-title{align-items:flex-start;flex-direction:column}.unit-actions{justify-content:flex-start}.career-row{grid-template-columns:1fr;gap:11px}.career-link{text-align:left;width:max-content}.stage-title h2{font-size:28px}}
+    /* Ajustes de identidad y navegación */
+    header{height:112px}
+    .header-logo img{height:92px;max-width:225px}
+    .family .arrow{font-size:28px;font-weight:900}
+    .career-row h3{color:var(--accent)}
+    .fad-groups{display:grid;gap:14px;border-top:0}
+    .career-list.grouped{border-top:0}
+    .career-list.sorted{border-top:0}
+    .duration-separator{margin-top:15px;padding:11px 18px;border-radius:13px 13px 0 0;background:var(--accent);color:#f0eeff;font-size:13px;font-weight:800;letter-spacing:.01em}
+    .duration-separator:first-child{margin-top:0}
+    .career-list.sorted>.career-row,.duration-block>.career-row{grid-template-columns:minmax(0,1fr) 190px}
+    .duration-block>.career-row:first-of-type{border-radius:0}
+    .fad-group{border-radius:18px;overflow:hidden;background:#fff}
+    .fad-group summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 22px;background:var(--accent);color:#f0eeff;cursor:pointer;font-weight:800}
+    .fad-group summary::-webkit-details-marker{display:none}
+    .fad-group summary span{font-size:17px}
+    .fad-group summary small{color:#f0eeff;font-size:12px;font-weight:700}
+    .fad-group[open] summary{border-radius:18px 18px 0 0}
+    .fad-group[open] summary{margin-bottom:14px}
+    .fad-group[open] .duration-block{padding:0 12px 12px}
+    .fad-group .career-row:first-child,.fad-group .career-row:last-child{border-radius:0}
+    .fad-group .career-row:last-child{border-bottom:0}
+    .career-note{color:#2b2b2d;font-weight:400;font-size:.9em}
+    .unit-info{margin:-8px 0 30px;padding:20px 22px;border-left:6px solid var(--accent);border-radius:16px;background:#fff;color:#2b2b2d}
+    .unit-info p{margin:0 0 13px;font-size:14px;line-height:1.65}
+    .map-link{display:inline-flex;align-items:center;gap:9px;color:#2b2b2d;font-size:13px;font-weight:700;text-decoration:none}
+    .map-link:hover{text-decoration:underline}
+    .map-pin{display:block;width:21px;height:28px;object-fit:contain;flex:0 0 auto}
+    .site-footer{flex-direction:column;align-items:center;gap:14px}
+    .site-footer strong{font-size:14px;color:#475ae2}
+    .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+    .footer-link{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;text-decoration:none;transition:.2s}
+    .footer-link img{display:block;width:44px;height:44px;object-fit:contain}
+    .footer-link:hover{transform:translateY(-3px)}
+    @media(max-width:620px){.header-logo img{height:47px;max-width:210px}}
+    @media(max-width:620px){
+      .career-list.sorted>.career-row,.duration-block>.career-row{grid-template-columns:minmax(0,1fr)}
+      .career-row>div{min-width:0}
+      .career-row h3{overflow-wrap:anywhere}
+      .career-link{display:block;width:100%;max-width:100%;box-sizing:border-box;text-align:center}
+      .fad-group summary{padding:17px 16px;flex-wrap:wrap}
+      .unit-info{margin:0 0 24px;padding:17px 16px;border-left-width:5px}
+      .unit-info p{font-size:13px;line-height:1.6}
+      .map-link{width:100%;align-items:flex-start;line-height:1.45}
+      .footer-links{display:flex;width:auto}
+    }
+  
+    /* Invitación breve al MOOC de Orientación Vocacional */
+    .mooc-mini{
+      max-width:1180px;
+      margin:24px auto 0;
+      padding:13px 16px 13px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      border:2px solid #475ae2;
+      border-left:7px solid #475ae2;
+      border-radius:16px;
+      background:rgba(255,255,255,.82);
+      box-shadow:0 8px 20px rgba(43,43,45,.06);
+    }
+    .mooc-mini-copy{
+      min-width:0;
+      display:flex;
+      align-items:baseline;
+      gap:11px;
+      flex-wrap:wrap;
+      color:#2b2b2d;
+      font-size:13px;
+      line-height:1.4;
+    }
+    .mooc-mini-copy strong{
+      color:#475ae2;
+      font-size:15px;
+      white-space:nowrap;
+    }
+    .mooc-mini-copy span{font-weight:600}
+    .mooc-mini-button{
+      flex:0 0 auto;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 17px;
+      border-radius:999px;
+      background:#475ae2;
+      color:#fff;
+      text-decoration:none;
+      font-size:11px;
+      font-weight:900;
+      white-space:nowrap;
+      transition:.2s;
+    }
+    .mooc-mini-button:hover{
+      background:#2033b9;
+      transform:translateY(-2px);
+    }
+    @media(max-width:760px){
+      .mooc-mini{align-items:flex-start;flex-direction:column;margin-top:20px}
+      .mooc-mini-copy{display:block}
+      .mooc-mini-copy strong{display:block;margin-bottom:4px;white-space:normal}
+      .mooc-mini-button{width:100%}
+    }
+
+
+    /* Intro institucional UNCUYO: tarjeta breve como las descripciones de las facultades */
+    .uncuyo-intro{
+      max-width:980px;
+      margin:22px auto 0;
+      padding:22px 28px 20px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 150px;
+      grid-template-areas:"copy logo" "location location";
+      align-items:center;
+      gap:14px 24px;
+      background:#fff;
+      border-left:7px solid #475ae2;
+      border-radius:20px;
+      box-shadow:0 8px 24px rgba(43,43,45,.06);
+      text-align:left;
+    }
+    .uncuyo-intro p{
+      grid-area:copy;
+      margin:0;
+      color:#2b2b2d;
+      font-size:14px;
+      line-height:1.65;
+      text-align:left;
+    }
+    .uncuyo-color-logo{
+      grid-area:logo;
+      justify-self:end;
+      display:block;
+      width:145px;
+      max-width:100%;
+      height:auto;
+      object-fit:contain;
+    }
+    .hero-map-link{
+      grid-area:location;
+      display:inline-flex;
+      width:max-content;
+      max-width:100%;
+      align-items:center;
+      justify-content:flex-start;
+      gap:10px;
+      padding:0;
+      border:0;
+      background:transparent;
+      text-decoration:none;
+      font-size:13px;
+      font-weight:800;
+      color:#2b2b2d;
+    }
+    .hero-map-link .map-pin{
+      display:block;
+      width:25px;
+      height:34px;
+      object-fit:contain;
+      flex:0 0 auto;
+    }
+    .hero-map-link:hover{text-decoration:underline}
+    @media(max-width:620px){
+      .uncuyo-intro{
+        margin-top:16px;
+        padding:18px 18px 17px;
+        grid-template-columns:1fr;
+        grid-template-areas:"logo" "copy" "location";
+        gap:12px;
+        border-left-width:6px;
+        border-radius:17px;
+      }
+      .uncuyo-color-logo{justify-self:start;width:125px}
+      .uncuyo-intro p{font-size:12px;line-height:1.55}
+      .hero-map-link{width:auto;justify-content:flex-start;text-align:left;font-size:11px}
+      .hero .steps{margin-top:24px}
+    }
+
+</style>
+
+<style id="ov-20260807-final-soft-center">
+/* Camino único: apoyado en el borde inferior y transparente en todas las pantallas. */
+.global-path-layer,
+main>section:nth-of-type(2n) .global-path-layer,
+main>section:nth-of-type(3n) .global-path-layer,
+main>section:nth-of-type(5n) .global-path-layer,
+.logo-cover .global-path-layer,
+.closing-question .global-path-layer,
+.phrase-final .global-path-layer,
+.digital-overview .global-path-layer,
+.platform-stage .global-path-layer,
+.course-slide .global-path-layer,
+.territory-slide .global-path-layer,
+.human-rights-slide .global-path-layer{
+  inset:auto -2% -2px -2%!important;
+  width:104%!important;
+  height:43%!important;
+  background-position:center bottom!important;
+  background-size:100% auto!important;
+  background-repeat:no-repeat!important;
+  opacity:.105!important;
+  transform:none!important;
+  mix-blend-mode:normal!important;
+  filter:saturate(.92) contrast(1.01)!important;
+}
+.logo-cover .global-path-layer,
+.closing-question .global-path-layer,
+.phrase-final .global-path-layer,
+.digital-overview .global-path-layer{
+  opacity:.13!important;
+}
+
+/* Título del ecosistema: centrado, en dos líneas, sobre el mismo eje. */
+.digital-overview>.section-kicker,
+.digital-overview>h2{
+  position:relative!important;
+  top:0!important;
+  width:100%!important;
+  max-width:none!important;
+  align-self:center!important;
+  text-align:center!important;
+}
+.digital-overview h2{
+  margin:8px auto 28px!important;
+  white-space:normal!important;
+  line-height:1.08!important;
+  font-size:clamp(38px,4.4vw,64px)!important;
+}
+.digital-overview>.story-grid{
+  position:relative!important;
+  top:0!important;
+}
+
+/* Entradas de tarjetas más suaves y breves. */
+.reveal-card{
+  opacity:0!important;
+  transform:translateY(6px)!important;
+  transition:opacity .68s ease, transform .68s cubic-bezier(.22,.72,.28,1)!important;
+}
+.active-slide .reveal-card:not(.visible){
+  opacity:0!important;
+  transform:translateY(6px)!important;
+}
+.active-slide .reveal-card.visible{
+  opacity:1!important;
+  transform:translateY(0)!important;
+}
+.active-slide .point-stat,
+.active-slide .territory-stat,
+.active-slide .web-stat,
+.active-slide .social-metric,
+.active-slide .mooc-highlight,
+.active-slide .course-partner,
+.active-slide .aula-partner,
+.active-slide .course-screen-access,
+.active-slide .course-screen-button,
+.active-slide .human-rights-media .course-access,
+.active-slide .applicant-law{
+  animation:finalGentleRise .62s cubic-bezier(.22,.72,.28,1) both!important;
+}
+@keyframes finalGentleRise{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Entrada discreta para el código QR. */
+.qr-slide>img{
+  opacity:0;
+  transform:translateY(7px);
+}
+.qr-slide.active-slide>img{
+  animation:qrSoftEntry .72s .16s cubic-bezier(.22,.72,.28,1) both!important;
+}
+@keyframes qrSoftEntry{
+  from{opacity:0;transform:translateY(7px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Estadísticas de Expos: mismo botón que las tarjetas de la pantalla siguiente. */
+.territory-bottom-stats{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:10px!important;
+  width:100%!important;
+  margin-top:auto!important;
+  padding-top:14px!important;
+}
+.territory-bottom-stats .territory-stat{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  min-height:50px!important;
+  margin:0!important;
+  padding:9px 12px!important;
+  border-radius:13px!important;
+  background:#2033B9!important;
+  color:#F0EEFF!important;
+  box-shadow:none!important;
+  text-align:center!important;
+}
+.territory-bottom-stats .territory-stat strong{
+  color:#F0EEFF!important;
+  font-size:12px!important;
+  line-height:1.2!important;
+  font-weight:900!important;
+}
+
+.phrase-final .small-thanks{
+  letter-spacing:.01em!important;
+}
+
+@media(max-width:900px){
+  .global-path-layer,
+  main>section:nth-of-type(2n) .global-path-layer,
+  main>section:nth-of-type(3n) .global-path-layer,
+  main>section:nth-of-type(5n) .global-path-layer{
+    height:35%!important;
+    background-size:auto 100%!important;
+  }
+  .digital-overview h2{font-size:clamp(32px,7vw,52px)!important}
+}
+</style>
+
+
+<style id="uncuyo-home-description">
+  .uncuyo-intro{max-width:760px;margin:18px auto 0;text-align:center}
+  .uncuyo-intro p{margin:0;color:#2b2b2d;font-size:13px;line-height:1.6;font-weight:500}
+  .hero-map-link{margin:12px auto 0;justify-content:center;width:max-content;max-width:100%;font-size:12px}
+  .hero-map-link .map-pin{width:20px;height:27px}
+  .hero .steps{margin-top:27px}
+  .career-count-badge{display:inline-flex;align-items:center;justify-content:center;margin:22px auto 0;padding:11px 20px;border-radius:999px;background:#475ae2;color:#f0eeff;font-size:14px;font-weight:800;box-shadow:0 10px 24px rgba(71,90,226,.18)}
+  .faculty-title-logo{width:132px;height:88px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:15px;background:#fff;box-shadow:0 8px 22px rgba(43,43,45,.1)}
+  .faculty-title-logo img{display:block;max-width:100%;max-height:68px;width:auto;height:auto;object-fit:contain}
+  @media(max-width:620px){
+    .uncuyo-intro{margin-top:15px}
+    .uncuyo-intro p{font-size:12px;line-height:1.55}
+    .hero-map-link{width:auto;justify-content:center;text-align:left;font-size:11px}
+    .hero .steps{margin-top:24px}
+    .career-count-badge{margin-top:18px;font-size:13px;padding:10px 17px}
+    .stage-heading{align-items:flex-start;flex-wrap:wrap}
+    .faculty-title-logo{width:104px;height:72px;padding:9px 11px}
+    .faculty-title-logo img{max-height:54px}
+  }
+</style>
+
+<style id="intermediate-titles-style">
+  .career-row.has-intermediate{align-items:start}
+  .intermediate-title{grid-column:1 / -1;margin-top:14px;padding:13px 0 0 13px;border-top:1px solid #e2dfec;border-left:3px solid var(--accent);display:grid;grid-template-columns:minmax(0,1fr) 190px;align-items:center;gap:20px}
+  .intermediate-copy{min-width:0}
+  .intermediate-label{display:block;margin-top:6px;margin-bottom:4px;color:#2b2b2d;font-size:13.3333px;font-weight:400;line-height:normal}
+  .intermediate-title strong{display:block;color:var(--accent);font-size:14px;line-height:1.4}
+  .intermediate-link{text-align:center;text-decoration:none;border:1px solid var(--accent);color:var(--accent);border-radius:10px;padding:9px 11px;font-size:11px;font-weight:800;white-space:nowrap;width:100%;box-sizing:border-box}
+  .intermediate-link:hover{background:color-mix(in srgb,var(--accent) 8%,transparent)}
+  @media(max-width:620px){.intermediate-title{grid-template-columns:1fr;gap:11px;padding-left:0;border-left:0}.intermediate-link{width:100%;text-align:center}}
+</style>
+</head>
+<body>
+  <header><a class="header-logo" href="./" aria-label="Volver al inicio de Descubrí UNCUYO"><img src="assets/descubri-puente.svg" alt="Descubrí UNCUYO, tu puente a la universidad"></a><a class="official-button" href="https://www.uncuyo.edu.ar/ingreso/" target="_blank">Sitio oficial</a></header>
+  <section class="hero"><div class="eyebrow">GUÍA DE CARRERAS</div><h1>Descubrí toda la oferta educativa de la UNCUYO.</h1><p class="lead">Un recorrido para conocer las familias de carreras, sus facultades e institutos y toda la oferta académica de la Universidad Nacional de Cuyo.</p><div class="uncuyo-intro"><p>La Universidad Nacional de Cuyo se fundó el 21 de marzo de 1939. Cuenta con 12 facultades, todas con sedes en Mendoza. Ofrecen carreras de pregrado, grado y posgrado. Además, posee 3 institutos: Instituto Balseiro (ubicado en Bariloche), Instituto Tecnológico Universitario (con 6 sedes distribuidas en el territorio provincial) y el Instituto de Seguridad Pública.</p><img class="uncuyo-color-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDg0LjE4IDI3LjY1Ij4KICA8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMzAuNy4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogMi4xLjQgQnVpbGQgMTE0KSAgLS0+CiAgPGRlZnM+CiAgICA8c3R5bGU+CiAgICAgIC5zdDAgewogICAgICAgIGZpbGw6ICMxZDFkMWI7CiAgICAgIH0KCiAgICAgIC5zdDEgewogICAgICAgIGZpbGw6ICNmZmY7CiAgICAgIH0KCiAgICAgIC5zdDIgewogICAgICAgIGZpbGw6ICNkMGJiOTE7CiAgICAgIH0KCiAgICAgIC5zdDMgewogICAgICAgIGZpbGw6ICNhNTEwMmQ7CiAgICAgIH0KCiAgICAgIC5zdDQgewogICAgICAgIGZpbGw6ICMwMDViN2Q7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDxnPgogICAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTExLjIzLDMuODhDNi41NCwzLjg4LDIuNzMsOC40OSwyLjczLDE0LjE2czMuODEsMTAuMjgsOC41LDEwLjI4LDguNS00LjYxLDguNS0xMC4yOFMxNS45MiwzLjg4LDExLjIzLDMuODhaIi8+CiAgICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMTEuMzMsMjEuNzVjMi43Mi0uMDIsNC42NC0yLjIyLDUuNDYtNC42SDUuODJjLjg1LDIuNCwyLjc2LDQuNiw1LjUxLDQuNlpNMTEuMzcsMTcuOTh2LS4wM2MuMTctLjA2LjQyLS4xNi43My0uMjMuMTctLjA0LjM1LS4wNy41NS0uMDguMDIsMCwuMjIsMCwuMzEsMCwuMDIsMCwuMTksMCwuMzMuMDIsMCwwLDAsMCwwLDAsMCwuMDMsMCwuMDUsMCwuMDgsMCwxLjA3LjAxLDIuNy4wMSwyLjctLjk3LS4xNS0xLjg2LjM1LTEuOTQuMzh2LTIuODNaTTkuMTYsMTcuNjh2LS4wNGMuMTQtLjAxLjM1LS4wMy4zOC0uMDMuMDQsMCwuMTksMCwuMjIuMDEuMTYuMDEuMzYuMDQuNTguMDkuNDQuMDkuMzMuMDYuOC4yNHYuMDNzMCwyLjg0LDAsMi44NGMtLjg3LS4zNS0xLjU5LS40NC0xLjkyLS4zOGwtLjA3LTIuNjlzLjAxLS4wNC4wMS0uMDR2LS4wMloiLz4KICAgIDxnPgogICAgICA8cGF0aCBjbGFzcz0ic3QyIiBkPSJNMTEuMjMsMy44OEM2LjU0LDMuODgsMi43Myw4LjQ5LDIuNzMsMTQuMTZzMy44MSwxMC4yOCw4LjUsMTAuMjgsOC41LTQuNjEsOC41LTEwLjI4UzE1LjkyLDMuODgsMTEuMjMsMy44OFpNMTEuMjQsMjIuNzljLTMuNzksMC02Ljg3LTMuODYtNi44Ny04LjYxczMuMDgtOC42MSw2Ljg3LTguNjEsNi44NywzLjg2LDYuODcsOC42MS0zLjA4LDguNjEtNi44Nyw4LjYxWiIvPgogICAgICA8cGF0aCBjbGFzcz0ic3Q0IiBkPSJNNy43LDEwLjQxcy42Ny4yOCwxLjQ0LS4yOGMuNzgtLjU2LDEuMTItMS41MywyLjAyLTEuNDcuOTEuMDcuNzEuMDgsMS41NCwxLjIyLjgzLDEuMTQsMS4xLDEuMTUsMS4yOCwxLjIxLjEzLjA0LDIuNDcuMDIsMi43OS4wMmwtLjAzLS4xMnMtMS42Ni00LjYtNS41Mi00LjYtNS4zMyw0LjAxLTUuMzMsNC4wMWMwLDAsLjg2LS4zOCwxLjc5LDBaIi8+CiAgICAgIDxnPgogICAgICAgIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xMC40OCwxNC4zM2MtLjA4LS4xNS0uMTktLjA5LS4xOS0uMDksMCwuMDYtLjMzLjA1LS4zMy4wNSwwLDAtLjAxLS4wNy0uMDgtLjEzLS4wNy0uMDYtLjE3LjE0LS4yMS4xOC0uMDQuMDMtLjEzLjA0LS4yLjIzLS4wNy4xOC4wMS4xOC4wMS4xOC0uMDQuMjcuMDcuMzQuMTMuMzYuMDYuMDIuMDMtLjExLjAzLS4xMS4wNC0uMDEuMDUtLjA3LjA1LS4wNy4xMi0uMDQuMTQtLjEuMTQtLjEsMCwwLC4wOSwwLC4xOS0uMDMuMS0uMDMuMTYtLjE0LjE2LS4xNCwwLDAsLjA2LS4wNC4xNS0uMDguMDktLjA0LjE2LS4wMi4xNi0uMDIsMCwwLC4wNS0uMTMsMC0uMjJaIi8+CiAgICAgICAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTE3LjA2LDEzLjU5cy0uMjksMC0uNTItLjAyYy0uMjItLjAzLTIuMzctLjk3LTIuNTQtMS4wMy0uMTctLjA1LS4yNS0uMTQtLjQ4LS4wNy0uMjMuMDctMS4zNy4xNC0xLjQzLjE0cy0uMjQuMDYtLjM0LjIxYy0uMTIuMi0uNjIuNzEtLjY3LjcyLS4wNi4wMi0uMjEtLjA5LS4yNC0uMTMtLjAyLS4wNC0uMS0uMjUtLjE3LS41Ny0uMDctLjMyLS4xOS0uNDItLjI1LS40Ny0uMDctLjA2LTEuMDEtLjk1LTEuMTQtMS4wNi0uMTMtLjExLS4yNS0uMDktLjI1LS4wOWgtLjY2cy0uNTQsMC0uNTQsMGgtLjJjLS4zNy4wMS0xLjAzLjAyLTEuMDguMDItLjA3LDAtLjM4LS4wNy0uMzgtLjA3LS4wNywwLS4wNC4wNS4wNy4xOC4xMS4xMi41MS4xNi43LjEzLjE5LS4wMy4wNC4wNS4wNC4wNS0uMTkuMDgtLjQzLDAtLjUyLDBzLS4wMS4wNi4xMy4xNmMuMTQuMS41My4wOS44LjA3LjI4LS4wMy4wNy4wMy4wNy4wMy0uMjMuMDgtLjQ3LjA3LS42Ny4wNi0uMi0uMDIuMDkuMjEuMjkuMjQuMTkuMDMuNDktLjE0LjU3LS4wOS4wOC4wNS0uMTkuMS0uMzUuMTQtLjE2LjA0LS4yNy4wOC0uMDEuMTcuMjUuMS40OS0uMDUuNjMtLjA3LjE0LS4wMi4wNS4wNS4wNS4wNS0uMjUuMDktLjE1LDAtLjMxLjA4LS4xNi4wOC4xNy4xNC4yNy4xMy4xLDAsLjQtLjA5LjQ0LS4xLjA0LS4wMS4xMS0uMDUuMDQuMDQtLjA3LjA5LS4zMS4xMi0uMzEuMTIsMCwwLS4yOS4xMS0uMDcuMTcuMTcuMDUuMzEsMCwuMzgtLjAzLjA5LS4wNi4zNC0uMTcuMjgtLjEyLS4yNi4yMS0uMTcuMjUtLjE3LjI1LjIyLjE0LjQ2LS4xLjU2LS4xMi4xLS4wMi0uMTcuMTgtLjEyLjI2LjA5LjE1LjU0LS4wMi41NC0uMDIsMCwwLS4yMS4wOC0uMTEuMjIuMDQuMDYuMjMuMDUuMjksMCwuMDYtLjA2LjA0LjAxLjAzLjA2LS4wMS4wNS0uMDMuMTUuMDQuMjIuMDguMDguMTEuMDMuMTEtLjAzLDAtLjA2LjA5LS4xOC4xMS0uMThzLS4wMi4xMy0uMDIuMjYuNTguMy41OC4zNC0uMDcuMDctLjEyLjFjLS4wNS4wMy0uMS4wMy0uMTYuMDYtLjA2LjAzLS4xOC4xMi0uMTQuMTkuMDQuMDcuMDYsMCwuMDYsMCwwLS4xMy41MS0uMjYuNjEuMTQuMDYuMjQtLjE5LjM1LS4yNS4zNi0uMDYuMDEtLjA4LjA1LS4wNS4wNS4xMi4wMi4xNC4wMy4zNi4wNS4yMi4wMi4yMy0uMDkuMzUtLjEuMTMsMCwuMS0uMDYuMTgtLjA2cy4wNS4wNy0uMDEuMTVjLS4wNi4wOS0uMTMuMTYtLjA3LjIxLjA3LjA1LjEzLS4wNy4xNy0uMDkuMDQtLjAzLDAsLjE0LjA4LjE4LjA5LjA2LjExLS4xMi4xMy0uMi4wMi0uMDcuMDYtLjAzLjA2LS4wMywwLC4yMy4wNy4yNi4xNC4yNy4wNywwLC4wNC0uMTcuMDQtLjIzcy4wMi0uMS4wMy0uMDRjLjAxLjA2LjE2LjMuMjUuMzEuMDguMDEuMDctLjA5LjA1LS4xNS0uMDItLjA2LS4wMS0uMS0uMDEtLjEsMCwwLC4yMS4yMi4yOC4yLjE1LS4wNS4xMi0uMDYuMS0uMTgtLjAyLS4xMi0uNDctLjc2LS41LS44LS4wMy0uMDUtLjA0LS4wOC4wNy0uMDQuMS4wNC4yNC0uMDMuMjgtLjExLjA0LS4wOCwwLS4xNy4wMy0uMTdzLjI3LjE4LjQ0LjNjLjE3LjEyLjIzLjE2LjM5LjEzLjE2LS4wMy4wMy0uMDgsMC0uMTYtLjA0LS4wOC4wOCwwLC4wOCwwLDAsMCwuMjQuMTMuMjguMTUuMDUuMDMuMjUuMDQuMTctLjA2LS4wOC0uMS0uMDYtLjE0LS4wNi0uMTlzLjE1LjE1LjI0LjIyYy4zMS4yNC4zMiwwLC4zMiwwLC4zMy40NS44Ny42NSwxLjAxLjY1LjE0LDAsLjExLS4xMS4wNi0uMTQtLjA1LS4wMy0uMi0uMDYtLjI1LS4xMy0uMDUtLjA4LS4wMS0uMDcuMDUtLjA0LjA2LjAzLjMuMTYuNDUuMTYuMTUsMCwuMTYtLjEuMDItLjE5LS4xMS0uMDctLjM3LS4yOS0uNDQtLjM2LS4wNy0uMDcuMDMtLjA3LjA2LS4wNS4wMy4wMy4yMy4xNC40Ni4zMi4yNi4yLjUxLjA1LjU0LDAsLjA0LS4wNy0uMTktLjEyLS4zNy0uMjUtLjItLjE1LS41NC0uMzItLjY2LS40MS0uMTItLjA5LjEtLjAxLjEtLjAxLjQxLjI0Ljg5LjQsMS4wMy40MS4xNC4wMi40MywwLC40Ny0uMTMuMDQtLjEzLS4xNS0uMDQtLjQxLS4xLS4xOS0uMDUtLjU4LS4xOC0uNjktLjI2LS4xMi0uMDkuMDctLjAzLjA3LS4wMy43NS4zMiwxLjA1LjIyLDEuMDUuMjIuNC0uMTIuMTctLjI0LjE3LS4yNFoiLz4KICAgICAgPC9nPgogICAgPC9nPgogIDwvZz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzAuMzUsMTQuMTZjMCwzLjQ0LDEuOTUsNS44NSw1LjMzLDUuODVzNS4zMy0yLjQyLDUuMzMtNS44NS0xLjk3LTUuODUtNS4zMy01Ljg1LTUuMzMsMi41LTUuMzMsNS44NU03Mi4wMywxNC4xNmMwLTIuMywxLjIxLTQuNDQsMy42NS00LjQzLDIuNDQtLjAyLDMuNjUsMi4xMiwzLjY1LDQuNDNzLTEuMSw0LjQzLTMuNjUsNC40My0zLjY1LTIuMTctMy42NS00LjQzTTY1LjU0LDE5LjgyaDEuNTl2LTQuNzNsNC4zMi02LjU4aC0xLjg2bC0zLjIyLDUuMDgtMy4zLTUuMDhoLTEuODZsNC4zMyw2LjU4djQuNzNaTTYwLjcyLDguNWgtMS41OXY2LjQyYzAsMi4xNy0uNjcsMy42Ni0yLjcxLDMuNjZzLTIuNzEtMS40OS0yLjcxLTMuNjZ2LTYuNDJoLTEuNTl2Ni42M2MwLDMuMTgsMS41Nyw0Ljg4LDQuMyw0Ljg4czQuMy0xLjcsNC4zLTQuODh2LTYuNjNaTTUxLjMsOC44Yy0uNzktLjM2LTEuNjMtLjQ5LTIuNDktLjQ5LTMuMzgsMC01Ljg1LDIuMzItNS44NSw1LjhzMi4zMyw1LjksNS44NCw1LjljLjY1LDAsMS42OC0uMDUsMi41Mi0uNDFsLS4xLTEuNTdjLS41Ni4zNC0xLjYyLjU1LTIuNDEuNTUtMi4zLDAtNC4xNy0xLjc3LTQuMTctNC40M3MxLjctNC40Myw0LjI1LTQuNDNjLjgxLDAsMS41OS4yMSwyLjI4LjYzbC4xMy0xLjU3Wk0zMy4yNCwxOS44MmgxLjU5di05LjMxaC4wM2w1LjAxLDkuMzFoMi4wM3YtMTEuMzJoLTEuNTl2OS4xMWgtLjAzbC00Ljg5LTkuMTFoLTIuMTZ2MTEuMzJaTTMxLjc2LDguNWgtMS41OXY2LjQyYzAsMi4xNy0uNjcsMy42Ni0yLjcxLDMuNjZzLTIuNzEtMS40OS0yLjcxLTMuNjZ2LTYuNDJoLTEuNTl2Ni42M2MwLDMuMTgsMS41Nyw0Ljg4LDQuMyw0Ljg4czQuMy0xLjcsNC4zLTQuODh2LTYuNjNaIi8+Cjwvc3ZnPg==" alt="Logo UNCUYO"><a class="map-link hero-map-link" href="https://www.google.com/maps/search/?api=1&query=Centro+Universitario+UNCUYO+Mendoza" target="_blank" rel="noopener"><img class="map-pin" src="data:image/png;base64,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" alt="Punto de ubicación"><span>Centro Universitario, Ciudad de Mendoza</span></a></div><div class="steps"><button class="step current" id="s1" type="button"><span>1</span>Familia</button><i class="step-line"></i><button class="step disabled" id="s2" type="button"><span>2</span>Facultad</button><i class="step-line"></i><button class="step disabled" id="s3" type="button"><span>3</span>Carreras</button></div></section>
+  <section class="chooser" id="familyStage"><div class="chooser-head"><h2>¿Qué familia de carreras querés explorar?</h2><p>Cada color reúne campos de conocimiento y formas de intervención relacionadas.</p></div><div class="families" id="families"></div><div class="mooc-mini" aria-label="Invitación al MOOC de Orientación Vocacional">
+  <div class="mooc-mini-copy"><strong>MOOC de Orientación Vocacional</strong><span>Curso virtual, abierto y con certificación. Una propuesta para comenzar a construir un proyecto vocacional y ocupacional propio mediante el autoconocimiento, la identificación de intereses y el análisis crítico de la oferta académica de la UNCUYO.</span></div>
+  <a class="mooc-mini-button" href="https://aulaabierta.uncuyo.edu.ar/" target="_blank" rel="noopener">Conocer el curso</a>
+</div></section>
+  <section class="stage" id="facultyStage"><div class="stage-inner"><button class="back" id="backFamily">Volver a las familias</button><div class="stage-title"><i class="color-mark"></i><div><h2 id="familyTitle"></h2><p>Elegí una facultad o instituto para ver su oferta.</p></div></div><div class="faculty-list" id="facultyList"></div></div></section>
+  <section class="stage offer" id="careerStage"><div class="stage-inner"><button class="back" id="backFaculty">Volver a las facultades</button><div class="stage-title"><div class="stage-heading"><i class="color-mark"></i><div><h2 id="facultyTitle"></h2></div></div><div class="unit-actions"><a class="unit-action" id="siteButton" target="_blank">Sitio web</a><a class="unit-action" id="admissionButton" target="_blank">Ingreso</a></div></div><div class="unit-info" id="unitInfo"><p id="unitBio"></p><a class="map-link" id="mapLink" target="_blank" rel="noopener"><img class="map-pin" id="mapIcon" alt=""><span id="unitLocation"></span></a></div><div class="career-list" id="careerList"></div></div></section>
+  <footer class="site-footer"><strong>Descubrí UNCUYO</strong><div class="footer-links"><a class="footer-link" href="https://www.instagram.com/descubriuncuyo/" target="_blank" rel="noopener" aria-label="Instagram de Descubrí UNCUYO"><img src="assets/instagram-descubri-agosto2026.png" alt="Instagram"></a><a class="footer-link" href="https://whatsapp.com/channel/0029VbA5YJZIXnlqf9kzAL3D" target="_blank" rel="noopener" aria-label="Canal de WhatsApp de Descubrí UNCUYO"><img src="assets/whatsapp-descubri-agosto2026.png" alt="WhatsApp"></a></div></footer>
+  <script>
+  const meta={salud:['Ciencias de la Salud','#00c1cf','+'],artes:['Artes y Diseño','#ffc813','✦'],exactas:['Ciencias Exactas, Naturales y Tecnológicas','#9cc813','⌁'],economicas:['Ciencias Económicas, Jurídicas y de Seguridad','#f1063c','◇'],sociales:['Ciencias Sociales y Humanas','#b289ff','◌']};
+  const gpsIcons={salud:'assets/pin-salud-agosto2026.png',artes:'assets/pin-artes-agosto2026.png',exactas:'assets/pin-exactas-agosto2026.png',economicas:'assets/pin-economicas-agosto2026.png',sociales:'assets/pin-sociales-agosto2026.png'};
+  const units={FAD:['Facultad de Artes y Diseño','https://fad.uncuyo.edu.ar','https://fad.uncuyo.edu.ar/ingreso/'],FCAI:['Facultad de Ciencias Aplicadas a la Industria','https://fcai.uncuyo.edu.ar','https://fcai.uncuyo.edu.ar/ingreso/'],FCA:['Facultad de Ciencias Agrarias','https://fca.uncuyo.edu.ar','https://fca.uncuyo.edu.ar/ingreso/'],FCEN:['Facultad de Ciencias Exactas y Naturales','https://fcen.uncuyo.edu.ar','https://fcen.uncuyo.edu.ar/ingreso/'],FI:['Facultad de Ingeniería','https://ingenieria.uncuyo.edu.ar','https://ingenieria.uncuyo.edu.ar/ingreso/'],ITU:['Instituto Tecnológico Universitario','https://itu.uncuyo.edu.ar','https://itu.uncuyo.edu.ar/ingreso/'],IB:['Instituto Balseiro','https://www.ib.edu.ar/','https://www.ib.edu.ar/academicas/carreras-de-grado/ingreso-grado/'],FCP:['Facultad de Ciencias Políticas y Sociales','https://fcp.uncuyo.edu.ar','https://fcp.uncuyo.edu.ar/ingreso/'],FFYL:['Facultad de Filosofía y Letras','https://ffyl.uncuyo.edu.ar','https://ffyl.uncuyo.edu.ar/ingreso/'],FE:['Facultad de Educación','https://educacion.uncuyo.edu.ar','https://educacion.uncuyo.edu.ar/ingreso/'],FCM:['Facultad de Ciencias Médicas','https://fcm.uncuyo.edu.ar','https://fcm.uncuyo.edu.ar/ingreso/'],FO:['Facultad de Odontología','https://www.fodonto.uncuyo.edu.ar/','https://www.fodonto.uncuyo.edu.ar/ingreso'],FCE:['Facultad de Ciencias Económicas','https://fce.uncuyo.edu.ar','https://fce.uncuyo.edu.ar/ingreso/'],FD:['Facultad de Derecho','https://derecho.uncuyo.edu.ar','https://derecho.uncuyo.edu.ar/ingreso/'],IUSP:['Instituto Universitario de Seguridad Pública','https://iusp.uncuyo.edu.ar','https://iusp.uncuyo.edu.ar/ingreso/']};
+  const unitProfiles={
+    FAD:['Creada en 1980 al reunir las escuelas de Artes Plásticas, Música, Teatro y Cerámica, adoptó su nombre actual en 1998. Hoy integra formación y producción en artes, diseño y disciplinas proyectuales.','Centro Universitario, Ciudad de Mendoza','Facultad de Artes y Diseño UNCUYO'],
+    FCAI:['Nació en San Rafael en 1961 como Instituto Tecnológico Superior y se incorporó a la UNCUYO como facultad en 1993. Se distingue por su formación y transferencia en ingeniería, alimentos y procesos industriales.','Bernardo de Irigoyen 375, San Rafael, Mendoza','Facultad de Ciencias Aplicadas a la Industria UNCUYO'],
+    FCA:['Creada en 1949, recoge una extensa tradición mendocina de formación agronómica y vitivinícola. Desde su campus de Chacras de Coria articula enseñanza, investigación y producción agroalimentaria.','Almirante Brown 500, Chacras de Coria, Luján de Cuyo','Facultad de Ciencias Agrarias UNCUYO'],
+    FCEN:['Surgió del Instituto de Ciencias Básicas y se convirtió en facultad en 2014. Forma profesionales en ciencias exactas y naturales y desarrolla actividades académicas en distintas zonas de Mendoza.','Centro Universitario, Ciudad de Mendoza','Facultad de Ciencias Exactas y Naturales UNCUYO'],
+    FI:['Se originó en el Instituto del Petróleo creado en 1940 y alcanzó el rango de facultad en 1967. Su propuesta se amplió hacia distintas ingenierías, Arquitectura y Ciencias de la Computación.','Centro Universitario, Ciudad de Mendoza','Facultad de Ingeniería UNCUYO Mendoza'],
+    ITU:['Creado en 1993 e integrado formalmente a la UNCUYO en 2014, ofrece tecnicaturas orientadas al trabajo y la innovación aplicada. Cuenta con sedes en diferentes departamentos de Mendoza.','Múltiples sedes en la provincia de Mendoza','Instituto Tecnológico Universitario UNCUYO Mendoza'],
+    IB:['Creado en 1955 mediante un convenio entre la UNCUYO y la CNEA, funciona en el Centro Atómico Bariloche. Es reconocido por su formación científica y tecnológica, su selección de ingreso y su sistema de becas.','Avenida Bustillo km 9,5, San Carlos de Bariloche, Río Negro','Instituto Balseiro Bariloche'],
+    FCP:['Sus antecedentes se remontan a los cursos de Formación Política de 1950 y fue elevada a facultad en 1967. Es un espacio de formación e investigación sobre los procesos políticos, sociales y comunicacionales contemporáneos.','Centro Universitario, Ciudad de Mendoza','Facultad de Ciencias Políticas y Sociales UNCUYO'],
+    FFYL:['Es una de las unidades fundacionales de la UNCUYO, creada en 1939. Desarrolla una amplia trayectoria en humanidades, lenguas, educación, historia, filosofía y estudios territoriales.','Centro Universitario, Ciudad de Mendoza','Facultad de Filosofía y Letras UNCUYO'],
+    FE:['Tiene sus raíces en la formación docente universitaria iniciada en 1971 y adoptó posteriormente su actual organización como facultad. Se especializa en educación, inclusión, diversidad y formación pedagógica.','Centro Universitario y Sobremonte 81, Ciudad de Mendoza','Facultad de Educación UNCUYO Mendoza'],
+    FCM:['Fundada en 1950, inició su enseñanza asistencial en el Hospital Central y fue la primera facultad instalada en la Ciudad Universitaria. Integra formación sanitaria, práctica asistencial e investigación biomédica.','Centro Universitario, Ciudad de Mendoza','Facultad de Ciencias Médicas UNCUYO'],
+    FO:['La Escuela de Odontología comenzó sus actividades en 1976 y luego alcanzó autonomía como facultad. Combina formación científica y humanista con una importante tarea clínica y comunitaria en salud bucal.','Centro Universitario, Ciudad de Mendoza','Facultad de Odontología UNCUYO'],
+    FCE:['Inició sus actividades como Escuela de Ciencias Económicas y se constituyó como facultad durante la década de 1940. Amplió su presencia territorial y su formación en economía, administración, contabilidad y logística.','Centro Universitario, Mendoza, con sedes en San Rafael y Junín','Facultad de Ciencias Económicas UNCUYO'],
+    FD:['Creada en 1984 durante la recuperación democrática, comenzó sus clases en 1985 y consolidó su sede propia en el campus en 2001. Es la unidad académica pública provincial dedicada a la formación universitaria en Derecho.','Centro Universitario, Ciudad de Mendoza','Facultad de Derecho UNCUYO Mendoza'],
+    IUSP:['Creado en 1998 por un acuerdo entre la UNCUYO y el Gobierno de Mendoza, profesionaliza la formación en seguridad pública y penitenciaria. Integra preparación técnica con formación jurídica, ética y en derechos humanos.','Godoy Cruz, Mendoza, con delegaciones provinciales','Instituto Universitario de Seguridad Pública Mendoza']
+  };
+  const logos={FAD:'assets/fad.png',FCAI:'assets/fcai.png',FCA:'assets/fca.png',FCEN:'assets/fcen.png',FI:'assets/ingenieria.png',ITU:'assets/itu.png',IB:'assets/balseiro.png',FCP:'assets/politicas.png',FFYL:'assets/filosofia.png',FE:'assets/educacion.png',FCM:'assets/medicas.png',FO:'assets/odontologia.png',FCE:'assets/economicas.png',FD:'assets/derecho.png',IUSP:'assets/iusp.png'};
+  const rows=`Diseño Escenográfico|4 años|FAD|artes|Diseño
+Licenciatura en Arte Dramático|4 años|FAD|artes|Licenciatura
+Profesorado de Grado Universitario en Teatro|4 años|FAD|artes|Profesorado
+Ciclo de Profesorado de Grado Universitario en Escenografía|1½ años|FAD|artes|Ciclo de Profesorado
+Licenciatura en Artes Plásticas|5 años|FAD|artes|Licenciatura
+Licenciatura en Historia de las Artes Plásticas|5 años|FAD|artes|Licenciatura
+Profesorado de Grado Universitario en Artes Visuales|4½ años|FAD|artes|Profesorado
+Profesorado de Grado Universitario en Historia del Arte|4½ años|FAD|artes|Profesorado
+Licenciatura en Cerámica Artística|4½ años|FAD|artes|Licenciatura
+Licenciatura en Cerámica Industrial|4½ años|FAD|artes|Licenciatura
+Profesorado de Grado Universitario en Cerámica Artística|4 años|FAD|artes|Profesorado
+Diseño Gráfico|5 años|FAD|artes|Diseño
+Diseño Industrial|5 años|FAD|artes|Diseño
+Ciclo de Profesorado de Grado Universitario en Diseño|1½ años|FAD|artes|Ciclo de Profesorado
+Licenciatura en Música - Arpa|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Canto|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Clarinete|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Composición Musical|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Contrabajo|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Dirección Coral|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Fagot|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Flauta|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Guitarra|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Oboe|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Órgano|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Percusión|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Piano|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Saxofón|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Trombón|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Trompa (Corno)|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Trompeta|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Viola|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Violín|5 años|FAD|artes|Licenciatura
+Licenciatura en Música - Violoncello|5 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular - Orientación Canto|4 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular - Orientación Guitarra|4 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular - Orientación Percusión|4 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular - Orientación Teclados|4 años|FAD|artes|Licenciatura
+Licenciatura en Música Popular - Orientación Vientos|4 años|FAD|artes|Licenciatura
+Profesorado de Grado Universitario en Teorías Musicales|5 años|FAD|artes|Profesorado
+Profesorado de Grado Universitario en Música|4 años|FAD|artes|Profesorado
+Ciclo de Profesorado de Grado Universitario en Música|1½ años|FAD|artes|Ciclo de Profesorado
+Ingeniería en Alimentos|5 años|FCAI|exactas|Ingeniería
+Ingeniería Química|5 años|FCAI|exactas|Ingeniería
+Ingeniería Mecánica|5 años|FCAI|exactas|Ingeniería
+Profesorado Universitario en Química|4 años|FCAI|exactas|Profesorado
+Tecnicatura Universitaria en Enología y Viticultura|2 años 8 meses|FCAI|exactas|Tecnicatura
+Tecnicatura Universitaria en Operaciones Mineras|3 años|FCAI|exactas|Tecnicatura
+Bromatología|3 años|FCAI|exactas|Pregrado
+Ciclo de Complementación Curricular Licenciatura en Enología|3 años|FCAI|exactas|Ciclo de Licenciatura
+Bromatología|3 años|FCA|exactas|Pregrado
+Licenciatura en Bromatología|4 años 9 meses|FCA|exactas|Licenciatura
+Ingeniería Agronómica|5 años 5 meses|FCA|exactas|Ingeniería
+Ingeniería en Recursos Naturales Renovables|5 años|FCA|exactas|Ingeniería
+Tecnicatura Universitaria en Enología y Viticultura|2 años 8 meses|FCA|exactas|Tecnicatura
+Profesorado en Ciencias Básicas - Orientación Biología|4½ años|FCEN|exactas|Profesorado
+Profesorado en Ciencias Básicas - Orientación Física|4½ años|FCEN|exactas|Profesorado
+Profesorado en Ciencias Básicas - Orientación Matemática|4½ años|FCEN|exactas|Profesorado
+Profesorado en Ciencias Básicas - Orientación Química|4½ años|FCEN|exactas|Profesorado
+Licenciatura en Ciencias Básicas - Orientación Biología|5 años|FCEN|exactas|Licenciatura
+Licenciatura en Ciencias Básicas - Orientación Física|5 años|FCEN|exactas|Licenciatura
+Licenciatura en Ciencias Básicas - Orientación Matemática|5 años|FCEN|exactas|Licenciatura
+Licenciatura en Ciencias Básicas - Orientación Química|5 años|FCEN|exactas|Licenciatura
+Licenciatura en Geología|5 años|FCEN|exactas|Licenciatura
+Ingeniería Civil|5 años|FI|exactas|Ingeniería
+Ingeniería en Petróleo|5 años|FI|exactas|Ingeniería
+Ingeniería Industrial|5 años|FI|exactas|Ingeniería
+Ingeniería Mecatrónica|5½ años|FI|exactas|Ingeniería
+Licenciatura en Ciencias de la Computación|5 años|FI|exactas|Licenciatura
+Arquitectura|5½ años|FI|exactas|Arquitectura
+Tecnicatura en Mantenimiento e Instalaciones Industriales|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Marketing|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Producción Industrial y Automatización|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Redes de Datos y Telecomunicaciones|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Electricidad y Sistemas de Control Industriales|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Desarrollo de Software|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Gestión de Empresas|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Higiene y Seguridad en el Trabajo|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Logística y Transporte|2½ años|ITU|exactas|Tecnicatura
+Tecnicatura en Ciencia de Datos (a distancia)|2½ años|ITU|exactas|Tecnicatura
+Ingeniería Nuclear|3 años|IB|exactas|Ingeniería
+Ingeniería Mecánica|3 años|IB|exactas|Ingeniería
+Ingeniería en Telecomunicaciones|3½ años|IB|exactas|Ingeniería
+Licenciatura en Física|3½ años|IB|exactas|Licenciatura
+Licenciatura en Ciencia Política y Administración Pública|5 años|FCP|sociales|Licenciatura
+Licenciatura en Sociología|5 años|FCP|sociales|Licenciatura
+Licenciatura en Trabajo Social|5 años|FCP|sociales|Licenciatura
+Licenciatura en Comunicación Social|4 años|FCP|sociales|Licenciatura
+Tecnicatura Universitaria en Gestión de Políticas Públicas|3 años|FCP|sociales|Tecnicatura
+Tecnicatura Universitaria en Producción Audiovisual|2½ años|FCP|sociales|Tecnicatura
+Ciclo de Profesorado en Comunicación Social|2 años|FCP|sociales|Ciclo de Profesorado
+Ciclo de Profesorado en Ciencia Política y Administración Pública|2 años|FCP|sociales|Ciclo de Profesorado
+Ciclo de Profesorado en Sociología|2 años|FCP|sociales|Ciclo de Profesorado
+Ciclo de Profesorado en Trabajo Social|2 años|FCP|sociales|Ciclo de Profesorado
+Profesorado Universitario en Filosofía|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Letras|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Historia|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Geografía|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Ciencias de la Educación|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Lengua Inglesa|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Lengua y Literatura Francesas|4½ años|FFYL|sociales|Profesorado
+Profesorado Universitario en Portugués|4½ años|FFYL|sociales|Profesorado
+Licenciatura en Filosofía|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Letras|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Historia|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Arqueología|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Geografía|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Ciencias de la Educación|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Filología Inglesa|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Francés|5 años|FFYL|sociales|Licenciatura
+Licenciatura en Turismo|4 años|FFYL|sociales|Licenciatura
+Traductorado Público en Inglés (Sede Central)|4½ años|FFYL|sociales|Traductorado
+Traductorado Público en Inglés (Sede Junín)|4½ años|FFYL|sociales|Traductorado
+Tecnicatura Universitaria en Francés|3 años|FFYL|sociales|Tecnicatura
+Tecnicatura Universitaria en Geotecnologías|3 años|FFYL|sociales|Tecnicatura
+Geógrafo/a|4½ años|FFYL|sociales|Carrera de grado
+Ciclo de Profesorado para Profesionales Universitarios - Sede Central y San Rafael|2 años|FFYL|sociales|Ciclo de Profesorado
+Profesorado Universitario de Educación Inicial|4 años|FE|sociales|Profesorado
+Profesorado Universitario de Educación para Personas Sordas|4 años|FE|sociales|Profesorado
+Profesorado Universitario de Educación Primaria|4 años|FE|sociales|Profesorado
+Profesorado Universitario de Pedagogía Terapéutica en Discapacidad Intelectual con Orientación en Discapacidad Motora|4 años|FE|sociales|Profesorado
+Profesorado Universitario de Pedagogía Terapéutica en Discapacidad Visual|4 años|FE|sociales|Profesorado
+Tecnicatura en Interpretación de Lengua de Señas|3 años|FE|sociales|Tecnicatura
+Tecnicatura Universitaria en Educación Social|2½ años|FE|sociales|Tecnicatura
+Licenciatura en Terapia del Lenguaje|4 años|FE|sociales|Licenciatura
+Medicina|6 años|FCM|salud|Carrera de grado
+Licenciatura en Enfermería|5 años|FCM|salud|Licenciatura
+Ciclo de Licenciatura en Higiene y Seguridad en el Trabajo|2 años|FCM|salud|Ciclo de Licenciatura
+Tecnicatura Universitaria en Diagnóstico por Imágenes|3 años|FCM|salud|Tecnicatura
+Tecnicatura Universitaria en Laboratorio|3 años|FCM|salud|Tecnicatura
+Tecnicatura Universitaria en Quirófano|3 años|FCM|salud|Tecnicatura
+Tecnicatura Universitaria en Anestesia|3 años|FCM|salud|Tecnicatura
+Odontología|5 años|FO|salud|Carrera de grado
+Licenciatura en Administración|5 años|FCE|economicas|Licenciatura
+Licenciatura en Economía|4 años|FCE|economicas|Licenciatura
+Licenciatura en Logística (Mendoza y a distancia)|4 años|FCE|economicas|Licenciatura
+Contador Público (Mendoza y San Rafael)|4 años|FCE|economicas|Carrera de grado
+Ciclo de Licenciatura en Gestión de Negocios Regionales (Gral. Alvear y Junín)|2½ años|FCE|economicas|Ciclo de Licenciatura
+Abogacía|5 años|FD|economicas|Carrera de grado
+Tecnicatura Universitaria en Administración de Edificios de Propiedad Horizontal y Conjuntos Inmobiliarios|2 años|FD|economicas|Tecnicatura
+Licenciatura en Seguridad Penitenciaria|4 años|IUSP|economicas|Licenciatura
+Licenciatura en Seguridad Pública|4 años|IUSP|economicas|Licenciatura
+Tecnicatura Universitaria en Seguridad Penitenciaria|2 años|IUSP|economicas|Tecnicatura
+Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicatura`;
+  const specialPaths={
+    'FAD|Ciclo de Profesorado de Grado Universitario en Escenografía':'ciclo-profesorado-de-grado-universitario-en-escenografia',
+    'FAD|Profesorado de Grado Universitario en Teatro':'profesorado-de-grado-universitario-de-teatro',
+    'FAD|Ciclo de Profesorado de Grado Universitario en Diseño':'ciclo-de-profesorado-de-grado-universitario-de-diseno',
+    'FAD|Diseño Gráfico':'diseno-grafico-',
+    'FAD|Profesorado de Grado Universitario en Música':'ciclo-de-profesorado-de-grado-universitario-en-musica',
+    'FAD|Profesorado de Grado Universitario en Teorías Musicales':'profesorado-de-grado-universitario-de-teorias-musicales',
+    'FCAI|Ingeniería en Alimentos':'ingenieria-en-industrias-de-la-alimentacion',
+    'FCAI|Profesorado Universitario en Química':'profesorado-de-grado-universitario-en-quimica',
+    'FCAI|Bromatología':'bromatologia11',
+    'FCAI|Ciclo de Complementación Curricular Licenciatura en Enología':'https://fcai.uncuyo.edu.ar/estudios/carrera/ciclo-de-licenciatura-en-enologia',
+    'FCEN|Profesorado en Ciencias Básicas - Orientación Biología':'profesorado-de-grado-universitario-en-ciencias-basicas',
+    'FCEN|Profesorado en Ciencias Básicas - Orientación Física':'profesorado-de-grado-universitario-en-ciencias-basicas',
+    'FCEN|Profesorado en Ciencias Básicas - Orientación Matemática':'profesorado-de-grado-universitario-en-ciencias-basicas',
+    'FCEN|Profesorado en Ciencias Básicas - Orientación Química':'profesorado-de-grado-universitario-en-ciencias-basicas',
+    'FCEN|Licenciatura en Ciencias Básicas - Orientación Biología':'licenciatura-en-ciencias-basicas',
+    'FCEN|Licenciatura en Ciencias Básicas - Orientación Física':'licenciatura-en-ciencias-basicas',
+    'FCEN|Licenciatura en Ciencias Básicas - Orientación Matemática':'licenciatura-en-ciencias-basicas',
+    'FCEN|Licenciatura en Ciencias Básicas - Orientación Química':'licenciatura-en-ciencias-basicas',
+    'FCEN|Licenciatura en Geología':'licenciado-en-geologia',
+    'FI|Ingeniería en Petróleo':'ingenieria-de-petroleos',
+    'ITU|Tecnicatura en Mantenimiento e Instalaciones Industriales':'tecnicatura-universitaria-en-instalaciones-industriales-y-mantenimiento',
+    'ITU|Tecnicatura en Marketing':'tecnicatura-universitaria-marketing',
+    'ITU|Tecnicatura en Producción Industrial y Automatización':'tecnicatura-universitaria-en-produccion-industrial-y-automatizacion',
+    'ITU|Tecnicatura en Redes de Datos y Telecomunicaciones':'tecnicatura-universitaria-redes-de-datos-y-telecomunicaciones',
+    'ITU|Tecnicatura en Electricidad y Sistemas de Control Industriales':'tecnicatura-universitaria-en-electricidad-y-sistemas-de-control-industrial',
+    'ITU|Tecnicatura en Desarrollo de Software':'tecnicatura-universitaria-en-desarrollo-de-software',
+    'ITU|Tecnicatura en Gestión de Empresas':'tecnicatura-universitaria-gestion-de-empresas',
+    'ITU|Tecnicatura en Higiene y Seguridad en el Trabajo':'tecnicatura-universitaria-en-higiene-y-seguridad-en-el-trabajo',
+    'ITU|Tecnicatura en Logística y Transporte':'tecnicatura-logistica-y-transporte',
+    'ITU|Tecnicatura en Ciencia de Datos (a distancia)':'tecnicatura-universitaria-en-ciencia-de-datos',
+    'FFYL|Profesorado Universitario en Lengua y Literatura Francesas':'profesorado-de-grado-universitario-en-lengua-y-literatura-francesas',
+    'FFYL|Profesorado Universitario en Portugués':'profesorado-de-grado-universitario-en-portugues',
+    'FFYL|Traductorado Público en Inglés (Sede Central)':'traductorado-publico-en-ingles',
+    'FFYL|Traductorado Público en Inglés (Sede Junín)':'traductorado-publico-en-ingles-zona-este-sede-junin',
+    'FFYL|Tecnicatura Universitaria en Francés':'tecnicatura-universitaria-de-frances',
+    'FFYL|Geógrafo/a':'geografo-profesional',
+    'FFYL|Ciclo de Profesorado para Profesionales Universitarios - Sede Central y San Rafael':'ciclo-de-profesorado-para-profesionales-universitarios',
+    'FCP|Ciclo de Profesorado en Comunicación Social':'profesor-de-grado-universitario-en-comunicacion-social',
+    'FCP|Ciclo de Profesorado en Ciencia Política y Administración Pública':'profe-cpyap',
+    'FCP|Ciclo de Profesorado en Sociología':'profesorado-en-sociologia',
+    'FCP|Ciclo de Profesorado en Trabajo Social':'profesorado-en-trabajo-social',
+    'FE|Profesorado Universitario de Pedagogía Terapéutica en Discapacidad Intelectual con Orientación en Discapacidad Motora':'profesorado-universitario-pedagogia-terapeutica-en-discapacidad-intelectual-orientacion-discapacidad-motora',
+    'FE|Profesorado Universitario de Pedagogía Terapéutica en Discapacidad Visual':'profesorado-terapeutico-de-grado-universitario-en-discapacidad-visual',
+    'FE|Profesorado Universitario de Educación Primaria':'profesorado-de-grado-universitario-en-educacion-primaria',
+    'FCE|Contador Público (Mendoza y San Rafael)':'contador-publico-plan-2026',
+    'FCE|Licenciatura en Logística (Mendoza y a distancia)':'licenciatura-en-logistica5970',
+    'FCE|Ciclo de Licenciatura en Gestión de Negocios Regionales (Gral. Alvear y Junín)':'licenciatura-en-gestion-de-negocios-regionales',
+    'FCM|Ciclo de Licenciatura en Higiene y Seguridad en el Trabajo':'licenciatura-en-higiene-y-seguridad-en-el-trabajo',
+    'IB|Ingeniería Nuclear':'https://www.ib.edu.ar/academicas/carreras-de-grado/ing-nuclear/',
+    'IB|Ingeniería Mecánica':'https://www.ib.edu.ar/academicas/carreras-de-grado/ing-mecanica/',
+    'IB|Ingeniería en Telecomunicaciones':'https://www.ib.edu.ar/academicas/carreras-de-grado/ing-telecomunicaciones/',
+    'IB|Licenciatura en Física':'https://www.ib.edu.ar/academicas/carreras-de-grado/carrera-de-grado_licfisica/'
+  };
+  const intermediateTitles={
+    'FCE|Contador Público (Mendoza y San Rafael)':{name:'Analista Universitario/a Contable',duration:'2 años',url:'https://fce.uncuyo.edu.ar/estudios/titulo/analista-universitarioa-contable'},
+    'FCE|Licenciatura en Administración':{name:'Analista Universitario/a en Administración',duration:'2 años',url:'https://fce.uncuyo.edu.ar/estudios/titulo/analista-universitarioa-en-administracion'},
+    'FCE|Licenciatura en Logística (Mendoza y a distancia)':{name:'Tecnicatura Universitaria en Administración de Almacenes',duration:'2,5 años',url:'https://fce.uncuyo.edu.ar/estudios/titulo/licenciatura-en-logistica2504'},
+    'FCE|Licenciatura en Economía':{name:'Analista Universitario/a en Economía y Finanzas',duration:'2 años',url:'https://fce.uncuyo.edu.ar/estudios/titulo/analista-universitarioa-en-economia-y-finanzas'},
+    'FCM|Licenciatura en Enfermería':{name:'Enfermero/a Universitario/a',duration:'3 años',url:'https://fcm.uncuyo.edu.ar/estudios/carrera/licenciatura-en-enfermeria6026'}
+  };
+  function slug(text){return text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\/a/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+  function careerUrl(name,u){
+    if(u==='FAD'&&name.startsWith('Licenciatura en Música - '))return 'https://fad.uncuyo.edu.ar/estudios/carrera/licenciatura-en-canto-composicion-musical-direccion-coral-o-instrumento';
+    if(u==='FAD'&&name.startsWith('Licenciatura en Música Popular - '))return 'https://fad.uncuyo.edu.ar/estudios/carrera/licenciatura-en-musica-popular';
+    const path=specialPaths[u+'|'+name];
+    if(path&&path.startsWith('https://'))return path;
+    return units[u][1].replace(/\/$/,'')+'/estudios/carrera/'+(path||slug(name));
+  }
+  const data=rows.split('\n').map((r,id)=>{const[name,duration,u,family,type]=r.split('|');return{id,name,duration,unit:u,faculty:units[u][0],url:careerUrl(name,u),family,type}});
+  let selectedFamily='',selectedFaculty='';const fam=document.querySelector('#families');
+  Object.entries(meta).forEach(([key,m])=>{const button=document.createElement('button');button.className='family';button.style.setProperty('--a',m[1]);button.innerHTML='<b>'+m[0]+'</b><small>'+data.filter(x=>x.family===key).length+' carreras</small><span class="arrow">→</span>';button.onclick=()=>chooseFamily(key);fam.append(button)});
+  function setStep(number){[1,2,3].forEach(n=>document.querySelector('#s'+n).classList.toggle('current',n===number))}
+  function show(id){['familyStage','facultyStage','careerStage'].forEach(x=>document.querySelector('#'+x).classList.toggle('visible',x===id));document.querySelector('#familyStage').style.display=id==='familyStage'?'block':'none';const uncuyoIntro=document.querySelector('.uncuyo-intro');if(uncuyoIntro)uncuyoIntro.style.display=id==='familyStage'?'grid':'none';setTimeout(()=>document.querySelector('#'+id).scrollIntoView({behavior:'smooth',block:'start'}),30)}
+  function careerTitle(name){const match=name.match(/^(.*?)(\s*\((?:[^)]*(?:a distancia|Sede|Mendoza|San Rafael|Gral\.|Junín)[^)]*)\))$/i);return match?match[1]+' <span class="career-note">'+match[2]+'</span>':name}
+  function careerRow(x){const t=intermediateTitles[x.unit+'|'+x.name],intermediate=t?'<div class="intermediate-title"><div class="intermediate-copy"><span class="intermediate-label">Título intermedio · '+t.duration+'</span><strong>'+t.name+'</strong></div><a class="intermediate-link" href="'+t.url+'" target="_blank" rel="noopener">Ampliar información</a></div>':'';return '<article class="career-row'+(t?' has-intermediate':'')+'"><div><h3>'+careerTitle(x.name)+'</h3><small>'+x.type+'</small></div><a class="career-link" href="'+x.url+'" target="_blank">Ampliar información</a>'+intermediate+'</article>'}
+  function durationValue(text){const years=parseInt(text,10)+(text.includes('½')?0.5:0),months=(text.match(/(\d+) meses/)||[])[1];return years+(months?Number(months)/12:0)}
+  function sortCareers(list){return [...list].sort((a,b)=>durationValue(a.duration)-durationValue(b.duration)||a.name.localeCompare(b.name,'es',{sensitivity:'base'}))}
+  function careersByDuration(list){let previous='';return sortCareers(list).map(x=>{const separator=x.duration===previous?'':'<div class="duration-separator">'+x.duration+'</div>';previous=x.duration;return separator+careerRow(x)}).join('')}
+  function fadGroup(name){if(name.includes('Música')||name.includes('Musicales'))return 'Música';if(name.includes('Cerámica'))return 'Cerámica';if(name.includes('Escen')||name.includes('Arte Dramático')||name.includes('Teatro'))return 'Artes del espectáculo';if(name.includes('Diseño'))return 'Diseño';return 'Artes visuales'}
+  function renderCareers(list,code){
+    if(code!=='FAD')return careersByDuration(list);
+    const order=['Artes del espectáculo','Artes visuales','Cerámica','Diseño','Música'];
+    return '<div class="fad-groups">'+order.map(group=>{const careers=list.filter(x=>fadGroup(x.name)===group);return '<details class="fad-group"><summary><span>'+group+'</span><small>'+careers.length+' carreras</small></summary><div class="duration-block">'+careersByDuration(careers)+'</div></details>'}).join('')+'</div>';
+  }
+  function chooseFamily(key){selectedFamily=key;selectedFaculty='';const m=meta[key],codes=[...new Set(data.filter(x=>x.family===key).map(x=>Object.keys(units).find(u=>units[u][0]===x.faculty)))];document.querySelector('#familyTitle').textContent=m[0];document.querySelector('#facultyStage').style.setProperty('--accent',m[1]);document.querySelector('#facultyList').innerHTML=codes.map(code=>'<button class="faculty-btn" data-code="'+code+'"><span class="faculty-logo"><img src="'+logos[code]+'" alt="Logo '+units[code][0]+'"></span><span class="faculty-label"><b>'+units[code][0]+'</b></span></button>').join('');document.querySelectorAll('.faculty-btn').forEach(b=>b.onclick=()=>chooseFaculty(b.dataset.code));document.querySelector('#s2').classList.remove('disabled');document.querySelector('#s3').classList.add('disabled');setStep(2);show('facultyStage')}
+  function chooseFaculty(code){selectedFaculty=code;const list=data.filter(x=>x.family===selectedFamily&&x.faculty===units[code][0]),m=meta[selectedFamily],profile=unitProfiles[code],careerList=document.querySelector('#careerList');document.querySelector('#facultyTitle').textContent=units[code][0];document.querySelector('#careerStage').style.setProperty('--accent',m[1]);document.querySelector('#unitBio').textContent=profile[0];document.querySelector('#unitLocation').textContent=profile[1];document.querySelector('#mapLink').href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(profile[2]);document.querySelector('#mapIcon').src=gpsIcons[selectedFamily];careerList.classList.toggle('grouped',code==='FAD');careerList.classList.add('sorted');careerList.innerHTML=renderCareers(list,code);document.querySelector('#siteButton').href=units[code][1];document.querySelector('#admissionButton').href=units[code][2];document.querySelector('#s3').classList.remove('disabled');setStep(3);show('careerStage')}
+  const careerCountBadge=document.createElement('div');careerCountBadge.className='career-count-badge';careerCountBadge.textContent='+ de 140 carreras';document.querySelector('.hero .lead').insertAdjacentElement('afterend',careerCountBadge);
+  const facultyTitleLogo=document.createElement('span');facultyTitleLogo.className='faculty-title-logo';facultyTitleLogo.innerHTML='<img src="" alt="">';document.querySelector('#facultyTitle').closest('div').insertAdjacentElement('beforebegin',facultyTitleLogo);
+  new MutationObserver(()=>{if(!selectedFaculty)return;const img=facultyTitleLogo.querySelector('img');img.src=logos[selectedFaculty];img.alt='Logo '+units[selectedFaculty][0]}).observe(document.querySelector('#facultyTitle'),{childList:true});
+  document.querySelector('#s1').onclick=()=>{setStep(1);show('familyStage')};document.querySelector('#s2').onclick=()=>{if(selectedFamily){setStep(2);show('facultyStage')}};document.querySelector('#s3').onclick=()=>{if(selectedFaculty)chooseFaculty(selectedFaculty)};document.querySelector('#backFamily').onclick=()=>{setStep(1);show('familyStage')};document.querySelector('#backFaculty').onclick=()=>{setStep(2);show('facultyStage')};document.querySelector('#familyStage').classList.add('visible');
+  </script>
+</body></html>
