@@ -359,6 +359,16 @@ main>section:nth-of-type(5n) .global-path-layer,
   }
 </style>
 
+
+<style id="fcp-professorate-cycles-style">
+  .professorate-cycles{margin-top:28px;border-radius:18px;overflow:hidden;background:#fff;border:1px solid #d6d3e5}
+  .professorate-cycles-head{padding:20px 18px 18px;border-left:6px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,#fff)}
+  .professorate-cycles-head h3{margin:0 0 7px;color:var(--accent);font-size:20px;letter-spacing:-.02em}
+  .professorate-cycles-head p{margin:0;max-width:900px;color:#2b2b2d;font-size:13px;line-height:1.55}
+  .professorate-cycles .career-row{border-radius:0;border-left:0;border-right:0}
+  .professorate-cycles .career-row:last-child{border-bottom:0}
+  @media(max-width:620px){.professorate-cycles-head{padding:17px 16px}.professorate-cycles-head h3{font-size:18px}}
+</style>
 <style id="intermediate-titles-style">
   .career-row.has-intermediate{align-items:start}
   .intermediate-title{grid-column:1 / -1;margin-top:14px;padding:13px 0 0 13px;border-top:1px solid #e2dfec;border-left:3px solid var(--accent);display:grid;grid-template-columns:minmax(0,1fr) 190px;align-items:center;gap:20px}
@@ -492,10 +502,10 @@ Licenciatura en Trabajo Social|5 años|FCP|sociales|Licenciatura
 Licenciatura en Comunicación Social|4 años|FCP|sociales|Licenciatura
 Tecnicatura Universitaria en Gestión de Políticas Públicas|3 años|FCP|sociales|Tecnicatura
 Tecnicatura Universitaria en Producción Audiovisual|2½ años|FCP|sociales|Tecnicatura
-Ciclo de Profesorado en Comunicación Social|2 años|FCP|sociales|Ciclo de Profesorado
-Ciclo de Profesorado en Ciencia Política y Administración Pública|2 años|FCP|sociales|Ciclo de Profesorado
-Ciclo de Profesorado en Sociología|2 años|FCP|sociales|Ciclo de Profesorado
-Ciclo de Profesorado en Trabajo Social|2 años|FCP|sociales|Ciclo de Profesorado
+Ciclo de Profesorado en Comunicación Social||FCP|sociales|Ciclo de Profesorado
+Ciclo de Profesorado en Ciencia Política y Administración Pública||FCP|sociales|Ciclo de Profesorado
+Ciclo de Profesorado en Sociología||FCP|sociales|Ciclo de Profesorado
+Ciclo de Profesorado en Trabajo Social||FCP|sociales|Ciclo de Profesorado
 Profesorado Universitario en Filosofía|4½ años|FFYL|sociales|Profesorado
 Profesorado Universitario en Letras|4½ años|FFYL|sociales|Profesorado
 Profesorado Universitario en Historia|4½ años|FFYL|sociales|Profesorado
@@ -627,6 +637,12 @@ Tecnicatura Universitaria en Seguridad Pública|2 años|IUSP|economicas|Tecnicat
   function careersByDuration(list){let previous='';return sortCareers(list).map(x=>{const separator=x.duration===previous?'':'<div class="duration-separator">'+x.duration+'</div>';previous=x.duration;return separator+careerRow(x)}).join('')}
   function fadGroup(name){if(name.includes('Música')||name.includes('Musicales'))return 'Música';if(name.includes('Cerámica'))return 'Cerámica';if(name.includes('Escen')||name.includes('Arte Dramático')||name.includes('Teatro'))return 'Artes del espectáculo';if(name.includes('Diseño'))return 'Diseño';return 'Artes visuales'}
   function renderCareers(list,code){
+    if(code==='FCP'){
+      const cycles=list.filter(x=>x.type==='Ciclo de Profesorado');
+      const regular=list.filter(x=>x.type!=='Ciclo de Profesorado');
+      const note='Destinados a graduados/as de las cuatro licenciaturas de la FCPyS o de carreras equivalentes de universidades nacionales, y a estudiantes de la Facultad con al menos el 85 % del plan aprobado.';
+      return careersByDuration(regular)+'<section class="professorate-cycles"><div class="professorate-cycles-head"><h3>Ciclos de Profesorado · 2 años</h3><p>'+note+'</p></div>'+cycles.map(careerRow).join('')+'</section>';
+    }
     if(code!=='FAD')return careersByDuration(list);
     const order=['Artes del espectáculo','Artes visuales','Cerámica','Diseño','Música'];
     return '<div class="fad-groups">'+order.map(group=>{const careers=list.filter(x=>fadGroup(x.name)===group);return '<details class="fad-group"><summary><span>'+group+'</span><small>'+careers.length+' carreras</small></summary><div class="duration-block">'+careersByDuration(careers)+'</div></details>'}).join('')+'</div>';
